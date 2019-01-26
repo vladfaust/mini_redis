@@ -1,0 +1,14 @@
+language: crystal
+services:
+  - redis-server
+script:
+  - env REDIS_URL=redis://localhost:6379 crystal spec
+  - crystal docs
+deploy:
+  provider: pages
+  keep_history: true
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  on:
+    branch: master
+  local_dir: docs

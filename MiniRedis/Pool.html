@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 0.27.0">
+
+
+<link href="../css/style.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="../js/doc.js"></script>
+<script type="text/javascript">
+  CrystalDoc.base_path = "../";
+</script>
+
+  <meta id="repository-name" content="github.com/vladfaust/mini_redis">
+  <title>MiniRedis::Pool - github.com/vladfaust/mini_redis</title>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="repository-links">
+      <a href="../index.html">README</a>
+    </div>
+  </div>
+
+  <div class="search-results" class="hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent open current" data-id="github.com/vladfaust/mini_redis/MiniRedis" data-name="miniredis">
+      <a href="../MiniRedis.html">MiniRedis</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/vladfaust/mini_redis/MiniRedis/ConnectionError" data-name="miniredis::connectionerror">
+      <a href="../MiniRedis/ConnectionError.html">ConnectionError</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/vladfaust/mini_redis/MiniRedis/Error" data-name="miniredis::error">
+      <a href="../MiniRedis/Error.html">Error</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/vladfaust/mini_redis/MiniRedis/Pipeline" data-name="miniredis::pipeline">
+      <a href="../MiniRedis/Pipeline.html">Pipeline</a>
+      
+    </li>
+  
+  <li class="parent open current" data-id="github.com/vladfaust/mini_redis/MiniRedis/Pool" data-name="miniredis::pool">
+      <a href="../MiniRedis/Pool.html">Pool</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/vladfaust/mini_redis/MiniRedis/Pool/TimeoutError" data-name="miniredis::pool::timeouterror">
+      <a href="../MiniRedis/Pool/TimeoutError.html">TimeoutError</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/vladfaust/mini_redis/MiniRedis/Transaction" data-name="miniredis::transaction">
+      <a href="../MiniRedis/Transaction.html">Transaction</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/vladfaust/mini_redis/MiniRedis/Value" data-name="miniredis::value">
+      <a href="../MiniRedis/Value.html">Value</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">class</span> MiniRedis::Pool
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../MiniRedis/Pool.html">MiniRedis::Pool</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+
+
+
+
+  <h2>Overview</h2>
+
+  <p>A <code><a href="../MiniRedis.html">MiniRedis</a></code> connection pool. It has dynamic <code><a href="../MiniRedis/Pool.html#capacity%3AInt32-instance-method">#capacity</a></code> and <code><a href="../MiniRedis/Pool.html#block%3AProc%28MiniRedis%29-instance-method">#block</a></code> value.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/vladfaust/mini_redis/blob/69cbe90c3e7b71b3cc5a6686aa04ce04da76dea9/src/mini_redis/pool.cr#L3" target="_blank">
+        mini_redis/pool.cr
+      </a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>Constructors</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new%28capacity%3AInt32%3DInt32%3A%3AMAX%2Cinitial_size%3AInt32%3D0%2Curi%3AURI%3DURI.parse%28%26quot%3Bredis%3A%2F%2Flocalhost%3A6379%26quot%3B%29%2Cdns_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%2Cconnect_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%2Cread_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%2Cwrite_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%29-class-method" class="signature"><strong>.new</strong>(capacity : Int32 = <span class="t">Int32</span><span class="t">::</span><span class="t">MAX</span>, initial_size : Int32 = <span class="n">0</span>, uri : URI = <span class="t">URI</span>.parse(<span class="s">&quot;redis://localhost:6379&quot;</span>), dns_timeout : Time::Span? = <span class="n">5</span>.seconds, connect_timeout : Time::Span? = <span class="n">5</span>.seconds, read_timeout : Time::Span? = <span class="n">5</span>.seconds, write_timeout : Time::Span? = <span class="n">5</span>.seconds)</a>
+        
+          <div class="summary"><p>Initialize a pool with <code><a href="../MiniRedis/Pool.html#block%3AProc%28MiniRedis%29-instance-method">#block</a></code> initializing a <code><a href="../MiniRedis.html">MiniRedis</a></code> client from the <em>uri</em>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28capacity%3AInt32%3DInt32%3A%3AMAX%2Cinitial_size%3AInt32%3D0%2C%26block%3A-%3EMiniRedis%29-class-method" class="signature"><strong>.new</strong>(capacity : Int32 = <span class="t">Int32</span><span class="t">::</span><span class="t">MAX</span>, initial_size : Int32 = <span class="n">0</span>, &block :  -> MiniRedis)</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#block%3AProc%28MiniRedis%29-instance-method" class="signature"><strong>#block</strong> : Proc(MiniRedis)</a>
+        
+          <div class="summary"><p>The pool's block to call to initialize a new <code><a href="../MiniRedis.html">MiniRedis</a></code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#block%3D%28block%3AProc%28MiniRedis%29%29-instance-method" class="signature"><strong>#block=</strong>(block : Proc(MiniRedis))</a>
+        
+          <div class="summary"><p>The pool's block to call to initialize a new <code><a href="../MiniRedis.html">MiniRedis</a></code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#capacity%3AInt32-instance-method" class="signature"><strong>#capacity</strong> : Int32</a>
+        
+          <div class="summary"><p>The pool's capacity.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#capacity%3D%28capacity%3AInt32%29-instance-method" class="signature"><strong>#capacity=</strong>(capacity : Int32)</a>
+        
+          <div class="summary"><p>The pool's capacity.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#free-instance-method" class="signature"><strong>#free</strong></a>
+        
+          <div class="summary"><p>The number of free clients in this pool.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get%28timeout%3ATime%3A%3ASpan%3F%3Dnil%2C%26block%3AMiniRedis-%3E%29-instance-method" class="signature"><strong>#get</strong>(timeout : Time::Span? = <span class="n">nil</span>, &block : MiniRedis -> )</a>
+        
+          <div class="summary"><p>Yield a free <code><a href="../MiniRedis.html">MiniRedis</a></code> client.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get%28timeout%3ATime%3A%3ASpan%3F%3Dnil%29%3AMiniRedis-instance-method" class="signature"><strong>#get</strong>(timeout : Time::Span? = <span class="n">nil</span>) : MiniRedis</a>
+        
+          <div class="summary"><p>Return a free <code><a href="../MiniRedis.html">MiniRedis</a></code> client.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#release%28redis%3AMiniRedis%29%3ANil-instance-method" class="signature"><strong>#release</strong>(redis : MiniRedis) : Nil</a>
+        
+          <div class="summary"><p>Put the <em>redis</em> client back into the pool.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#size-instance-method" class="signature"><strong>#size</strong></a>
+        
+          <div class="summary"><p>The total size of this pool (<code><a href="../MiniRedis/Pool.html#free-instance-method">#free</a></code> plus <code><a href="../MiniRedis/Pool.html#used-instance-method">#used</a></code>).</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#used-instance-method" class="signature"><strong>#used</strong></a>
+        
+          <div class="summary"><p>The number of clients in this pool currently being used.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+<div class="methods-inherited">
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+</div>
+
+
+  <h2>Constructor Detail</h2>
+  
+    <div class="entry-detail" id="new(capacity:Int32=Int32::MAX,initial_size:Int32=0,uri:URI=URI.parse(&amp;quot;redis://localhost:6379&amp;quot;),dns_timeout:Time::Span?=5.seconds,connect_timeout:Time::Span?=5.seconds,read_timeout:Time::Span?=5.seconds,write_timeout:Time::Span?=5.seconds)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(capacity : Int32 = <span class="t">Int32</span><span class="t">::</span><span class="t">MAX</span>, initial_size : Int32 = <span class="n">0</span>, uri : URI = <span class="t">URI</span>.parse(<span class="s">&quot;redis://localhost:6379&quot;</span>), dns_timeout : Time::Span? = <span class="n">5</span>.seconds, connect_timeout : Time::Span? = <span class="n">5</span>.seconds, read_timeout : Time::Span? = <span class="n">5</span>.seconds, write_timeout : Time::Span? = <span class="n">5</span>.seconds)
+
+        <a class="method-permalink" href="#new%28capacity%3AInt32%3DInt32%3A%3AMAX%2Cinitial_size%3AInt32%3D0%2Curi%3AURI%3DURI.parse%28%26quot%3Bredis%3A%2F%2Flocalhost%3A6379%26quot%3B%29%2Cdns_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%2Cconnect_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%2Cread_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%2Cwrite_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%29-class-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Initialize a pool with <code><a href="../MiniRedis/Pool.html#block%3AProc%28MiniRedis%29-instance-method">#block</a></code> initializing a <code><a href="../MiniRedis.html">MiniRedis</a></code> client from the <em>uri</em>.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/mini_redis/blob/69cbe90c3e7b71b3cc5a6686aa04ce04da76dea9/src/mini_redis/pool.cr#L5" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="new(capacity:Int32=Int32::MAX,initial_size:Int32=0,&amp;block:-&gt;MiniRedis)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(capacity : Int32 = <span class="t">Int32</span><span class="t">::</span><span class="t">MAX</span>, initial_size : Int32 = <span class="n">0</span>, &block :  -> <a href="../MiniRedis.html">MiniRedis</a>)
+
+        <a class="method-permalink" href="#new%28capacity%3AInt32%3DInt32%3A%3AMAX%2Cinitial_size%3AInt32%3D0%2C%26block%3A-%3EMiniRedis%29-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/mini_redis/blob/69cbe90c3e7b71b3cc5a6686aa04ce04da76dea9/src/mini_redis/pool.cr#L50" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail" id="block:Proc(MiniRedis)-instance-method">
+      <div class="signature">
+        
+        def <strong>block</strong> : Proc(<a href="../MiniRedis.html">MiniRedis</a>)
+
+        <a class="method-permalink" href="#block%3AProc%28MiniRedis%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>The pool's block to call to initialize a new <code><a href="../MiniRedis.html">MiniRedis</a></code>.
+Could be changed after the pool is initialized.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/mini_redis/blob/69cbe90c3e7b71b3cc5a6686aa04ce04da76dea9/src/mini_redis/pool.cr#L30" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="block=(block:Proc(MiniRedis))-instance-method">
+      <div class="signature">
+        
+        def <strong>block=</strong>(block : Proc(<a href="../MiniRedis.html">MiniRedis</a>))
+
+        <a class="method-permalink" href="#block%3D%28block%3AProc%28MiniRedis%29%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>The pool's block to call to initialize a new <code><a href="../MiniRedis.html">MiniRedis</a></code>.
+Could be changed after the pool is initialized.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/mini_redis/blob/69cbe90c3e7b71b3cc5a6686aa04ce04da76dea9/src/mini_redis/pool.cr#L30" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="capacity:Int32-instance-method">
+      <div class="signature">
+        
+        def <strong>capacity</strong> : Int32
+
+        <a class="method-permalink" href="#capacity%3AInt32-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>The pool's capacity. Could be changed after the pool is initialized.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/mini_redis/blob/69cbe90c3e7b71b3cc5a6686aa04ce04da76dea9/src/mini_redis/pool.cr#L26" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="capacity=(capacity:Int32)-instance-method">
+      <div class="signature">
+        
+        def <strong>capacity=</strong>(capacity : Int32)
+
+        <a class="method-permalink" href="#capacity%3D%28capacity%3AInt32%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>The pool's capacity. Could be changed after the pool is initialized.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/mini_redis/blob/69cbe90c3e7b71b3cc5a6686aa04ce04da76dea9/src/mini_redis/pool.cr#L26" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="free-instance-method">
+      <div class="signature">
+        
+        def <strong>free</strong>
+
+        <a class="method-permalink" href="#free-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>The number of free clients in this pool.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/mini_redis/blob/69cbe90c3e7b71b3cc5a6686aa04ce04da76dea9/src/mini_redis/pool.cr#L33" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="get(timeout:Time::Span?=nil,&amp;block:MiniRedis-&gt;)-instance-method">
+      <div class="signature">
+        
+        def <strong>get</strong>(timeout : Time::Span? = <span class="n">nil</span>, &block : <a href="../MiniRedis.html">MiniRedis</a> -> )
+
+        <a class="method-permalink" href="#get%28timeout%3ATime%3A%3ASpan%3F%3Dnil%2C%26block%3AMiniRedis-%3E%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Yield a free <code><a href="../MiniRedis.html">MiniRedis</a></code> client.
+Blocks until one is available, raises <code><a href="../MiniRedis/Pool/TimeoutError.html">TimeoutError</a></code> on optional <em>timeout</em>.
+Calls <code><a href="../MiniRedis/Pool.html#release%28redis%3AMiniRedis%29%3ANil-instance-method">#release</a></code> after yield.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/mini_redis/blob/69cbe90c3e7b71b3cc5a6686aa04ce04da76dea9/src/mini_redis/pool.cr#L59" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="get(timeout:Time::Span?=nil):MiniRedis-instance-method">
+      <div class="signature">
+        
+        def <strong>get</strong>(timeout : Time::Span? = <span class="n">nil</span>) : <a href="../MiniRedis.html">MiniRedis</a>
+
+        <a class="method-permalink" href="#get%28timeout%3ATime%3A%3ASpan%3F%3Dnil%29%3AMiniRedis-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Return a free <code><a href="../MiniRedis.html">MiniRedis</a></code> client.
+Blocks until one is available, raises <code><a href="../MiniRedis/Pool/TimeoutError.html">TimeoutError</a></code> on optional <em>timeout</em>.</p>
+
+<p><span class="flag purple">NOTE</span>  Do not forget to <code><a href="../MiniRedis/Pool.html#release%28redis%3AMiniRedis%29%3ANil-instance-method">#release</a></code> the client afterwards!</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/mini_redis/blob/69cbe90c3e7b71b3cc5a6686aa04ce04da76dea9/src/mini_redis/pool.cr#L70" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="release(redis:MiniRedis):Nil-instance-method">
+      <div class="signature">
+        
+        def <strong>release</strong>(redis : <a href="../MiniRedis.html">MiniRedis</a>) : Nil
+
+        <a class="method-permalink" href="#release%28redis%3AMiniRedis%29%3ANil-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Put the <em>redis</em> client back into the pool.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/mini_redis/blob/69cbe90c3e7b71b3cc5a6686aa04ce04da76dea9/src/mini_redis/pool.cr#L105" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="size-instance-method">
+      <div class="signature">
+        
+        def <strong>size</strong>
+
+        <a class="method-permalink" href="#size-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>The total size of this pool (<code><a href="../MiniRedis/Pool.html#free-instance-method">#free</a></code> plus <code><a href="../MiniRedis/Pool.html#used-instance-method">#used</a></code>).</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/mini_redis/blob/69cbe90c3e7b71b3cc5a6686aa04ce04da76dea9/src/mini_redis/pool.cr#L43" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="used-instance-method">
+      <div class="signature">
+        
+        def <strong>used</strong>
+
+        <a class="method-permalink" href="#used-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>The number of clients in this pool currently being used.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/mini_redis/blob/69cbe90c3e7b71b3cc5a6686aa04ce04da76dea9/src/mini_redis/pool.cr#L38" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+</div>
+
+</body>
+</html>

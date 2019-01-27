@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 0.27.0">
+
+
+<link href="../css/style.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="../js/doc.js"></script>
+<script type="text/javascript">
+  CrystalDoc.base_path = "../";
+</script>
+
+  <meta id="repository-name" content="github.com/vladfaust/mini_redis">
+  <title>MiniRedis::Pipeline - github.com/vladfaust/mini_redis</title>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="repository-links">
+      <a href="../index.html">README</a>
+    </div>
+  </div>
+
+  <div class="search-results" class="hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent open current" data-id="github.com/vladfaust/mini_redis/MiniRedis" data-name="miniredis">
+      <a href="../MiniRedis.html">MiniRedis</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/vladfaust/mini_redis/MiniRedis/ConnectionError" data-name="miniredis::connectionerror">
+      <a href="../MiniRedis/ConnectionError.html">ConnectionError</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/vladfaust/mini_redis/MiniRedis/Error" data-name="miniredis::error">
+      <a href="../MiniRedis/Error.html">Error</a>
+      
+    </li>
+  
+  <li class=" current" data-id="github.com/vladfaust/mini_redis/MiniRedis/Pipeline" data-name="miniredis::pipeline">
+      <a href="../MiniRedis/Pipeline.html">Pipeline</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/vladfaust/mini_redis/MiniRedis/Pool" data-name="miniredis::pool">
+      <a href="../MiniRedis/Pool.html">Pool</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/vladfaust/mini_redis/MiniRedis/Pool/TimeoutError" data-name="miniredis::pool::timeouterror">
+      <a href="../MiniRedis/Pool/TimeoutError.html">TimeoutError</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/vladfaust/mini_redis/MiniRedis/Transaction" data-name="miniredis::transaction">
+      <a href="../MiniRedis/Transaction.html">Transaction</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/vladfaust/mini_redis/MiniRedis/Value" data-name="miniredis::value">
+      <a href="../MiniRedis/Value.html">Value</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">class</span> MiniRedis::Pipeline
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../MiniRedis/Pipeline.html">MiniRedis::Pipeline</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+
+
+
+
+  <h2>Overview</h2>
+
+  <p>A client in pipeline mode. See <a href="https://redis.io/topics/pipelining" target="_blank">Pipelining docs</a>.</p>
+
+<pre><code>response <span class="o">=</span> redis.pipeline <span class="k">do</span> <span class="o">|</span>pipe<span class="o">|</span>
+  pipe.send(<span class="s">&quot;PING&quot;</span>)
+<span class="k">end</span>
+pp response <span class="c"># =&gt; Array(MiniRedis::Value)</span></code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/vladfaust/mini_redis/blob/69cbe90c3e7b71b3cc5a6686aa04ce04da76dea9/src/mini_redis/pipeline.cr#L10" target="_blank">
+        mini_redis/pipeline.cr
+      </a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>Constructors</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new%28redis%3AMiniRedis%29-class-method" class="signature"><strong>.new</strong>(redis : MiniRedis)</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#queued%3AInt32-instance-method" class="signature"><strong>#queued</strong> : Int32</a>
+        
+          <div class="summary"><p>The current number of commands queued for this pipeline.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#send%28command%3AString%29%3ANil-instance-method" class="signature"><strong>#send</strong>(command : String) : Nil</a>
+        
+          <div class="summary"><p>See <code><a href="../MiniRedis.html#send%28command%3AString%29%3ANil-instance-method">MiniRedis#send</a></code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#send%28commands%3AEnumerable%29%3ANil-instance-method" class="signature"><strong>#send</strong>(commands : Enumerable) : Nil</a>
+        
+          <div class="summary"><p>See <code><a href="../MiniRedis.html#send%28command%3AString%29%3ANil-instance-method">MiniRedis#send</a></code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#send%28%2Acommands%29%3ANil-instance-method" class="signature"><strong>#send</strong>(*commands) : Nil</a>
+        
+          <div class="summary"><p>See <code><a href="../MiniRedis.html#send%28command%3AString%29%3ANil-instance-method">MiniRedis#send</a></code>.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+<div class="methods-inherited">
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+</div>
+
+
+  <h2>Constructor Detail</h2>
+  
+    <div class="entry-detail" id="new(redis:MiniRedis)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(redis : <a href="../MiniRedis.html">MiniRedis</a>)
+
+        <a class="method-permalink" href="#new%28redis%3AMiniRedis%29-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/mini_redis/blob/69cbe90c3e7b71b3cc5a6686aa04ce04da76dea9/src/mini_redis/pipeline.cr#L14" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail" id="queued:Int32-instance-method">
+      <div class="signature">
+        
+        def <strong>queued</strong> : Int32
+
+        <a class="method-permalink" href="#queued%3AInt32-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>The current number of commands queued for this pipeline.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/mini_redis/blob/69cbe90c3e7b71b3cc5a6686aa04ce04da76dea9/src/mini_redis/pipeline.cr#L12" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="send(command:String):Nil-instance-method">
+      <div class="signature">
+        
+        def <strong>send</strong>(command : String) : Nil
+
+        <a class="method-permalink" href="#send%28command%3AString%29%3ANil-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>See <code><a href="../MiniRedis.html#send%28command%3AString%29%3ANil-instance-method">MiniRedis#send</a></code>.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/mini_redis/blob/69cbe90c3e7b71b3cc5a6686aa04ce04da76dea9/src/mini_redis/pipeline.cr#L18" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="send(commands:Enumerable):Nil-instance-method">
+      <div class="signature">
+        
+        def <strong>send</strong>(commands : Enumerable) : Nil
+
+        <a class="method-permalink" href="#send%28commands%3AEnumerable%29%3ANil-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>See <code><a href="../MiniRedis.html#send%28command%3AString%29%3ANil-instance-method">MiniRedis#send</a></code>.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/mini_redis/blob/69cbe90c3e7b71b3cc5a6686aa04ce04da76dea9/src/mini_redis/pipeline.cr#L24" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="send(*commands):Nil-instance-method">
+      <div class="signature">
+        
+        def <strong>send</strong>(*commands) : Nil
+
+        <a class="method-permalink" href="#send%28%2Acommands%29%3ANil-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>See <code><a href="../MiniRedis.html#send%28command%3AString%29%3ANil-instance-method">MiniRedis#send</a></code>.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/mini_redis/blob/69cbe90c3e7b71b3cc5a6686aa04ce04da76dea9/src/mini_redis/pipeline.cr#L30" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+</div>
+
+</body>
+</html>

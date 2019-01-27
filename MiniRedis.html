@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 0.27.0">
+
+
+<link href="css/style.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="js/doc.js"></script>
+<script type="text/javascript">
+  CrystalDoc.base_path = "";
+</script>
+
+  <meta id="repository-name" content="github.com/vladfaust/mini_redis">
+  <title>MiniRedis - github.com/vladfaust/mini_redis</title>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="repository-links">
+      <a href="index.html">README</a>
+    </div>
+  </div>
+
+  <div class="search-results" class="hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent open current" data-id="github.com/vladfaust/mini_redis/MiniRedis" data-name="miniredis">
+      <a href="MiniRedis.html">MiniRedis</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/vladfaust/mini_redis/MiniRedis/ConnectionError" data-name="miniredis::connectionerror">
+      <a href="MiniRedis/ConnectionError.html">ConnectionError</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/vladfaust/mini_redis/MiniRedis/Error" data-name="miniredis::error">
+      <a href="MiniRedis/Error.html">Error</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/vladfaust/mini_redis/MiniRedis/Pipeline" data-name="miniredis::pipeline">
+      <a href="MiniRedis/Pipeline.html">Pipeline</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/vladfaust/mini_redis/MiniRedis/Pool" data-name="miniredis::pool">
+      <a href="MiniRedis/Pool.html">Pool</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/vladfaust/mini_redis/MiniRedis/Pool/TimeoutError" data-name="miniredis::pool::timeouterror">
+      <a href="MiniRedis/Pool/TimeoutError.html">TimeoutError</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/vladfaust/mini_redis/MiniRedis/Transaction" data-name="miniredis::transaction">
+      <a href="MiniRedis/Transaction.html">Transaction</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/vladfaust/mini_redis/MiniRedis/Value" data-name="miniredis::value">
+      <a href="MiniRedis/Value.html">Value</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">class</span> MiniRedis
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="MiniRedis.html">MiniRedis</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+
+
+
+
+  <h2>Overview</h2>
+
+  <p>A light-weight low-level Redis client.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/vladfaust/mini_redis/blob/69cbe90c3e7b71b3cc5a6686aa04ce04da76dea9/src/mini_redis/errors.cr#L1" target="_blank">
+        mini_redis/errors.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/vladfaust/mini_redis/blob/69cbe90c3e7b71b3cc5a6686aa04ce04da76dea9/src/mini_redis/pipeline.cr#L1" target="_blank">
+        mini_redis/pipeline.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/vladfaust/mini_redis/blob/69cbe90c3e7b71b3cc5a6686aa04ce04da76dea9/src/mini_redis/pool.cr#L1" target="_blank">
+        mini_redis/pool.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/vladfaust/mini_redis/blob/69cbe90c3e7b71b3cc5a6686aa04ce04da76dea9/src/mini_redis/transaction.cr#L1" target="_blank">
+        mini_redis/transaction.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/vladfaust/mini_redis/blob/69cbe90c3e7b71b3cc5a6686aa04ce04da76dea9/src/mini_redis/value.cr#L1" target="_blank">
+        mini_redis/value.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/vladfaust/mini_redis/blob/69cbe90c3e7b71b3cc5a6686aa04ce04da76dea9/src/mini_redis.cr#L6" target="_blank">
+        mini_redis.cr
+      </a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>Constructors</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new%28uri%3AURI%3DURI.parse%28%26quot%3Bredis%3A%2F%2Flocalhost%3A6379%26quot%3B%29%2Cdns_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%2Cconnect_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%2Cread_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%2Cwrite_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%29-class-method" class="signature"><strong>.new</strong>(uri : URI = <span class="t">URI</span>.parse(<span class="s">&quot;redis://localhost:6379&quot;</span>), dns_timeout : Time::Span? = <span class="n">5</span>.seconds, connect_timeout : Time::Span? = <span class="n">5</span>.seconds, read_timeout : Time::Span? = <span class="n">5</span>.seconds, write_timeout : Time::Span? = <span class="n">5</span>.seconds)</a>
+        
+          <div class="summary"><p>Initialize with Redis <code>URI</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28socket%3ASocket%29-class-method" class="signature"><strong>.new</strong>(socket : Socket)</a>
+        
+          <div class="summary"><p>Initialize with raw Crystal <code>Socket</code>.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#close-instance-method" class="signature"><strong>#close</strong></a>
+        
+          <div class="summary"><p>Close the underlying socket.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#command%28%2Aargs%2C%2A%2Anargs%29%3AValue-instance-method" class="signature"><strong>#command</strong>(*args, **nargs) : Value</a>
+        
+          <div class="summary"><p>Wrap <code><a href="MiniRedis.html#send%28command%3AString%29%3ANil-instance-method">#send</a></code> and <code><a href="MiniRedis.html#receive%28%2A%2Cskip_queued%3Dfalse%29%3AValue-instance-method">#receive</a></code> in one call.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#finalize-instance-method" class="signature"><strong>#finalize</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#pipeline%28read%3ABool%2C%26block%3APipeline-%3E%29%3AArray%28Value%29%3F-instance-method" class="signature"><strong>#pipeline</strong>(read : Bool, &block : Pipeline -> ) : Array(Value)?</a>
+        
+          <div class="summary"><p>Yield <code><a href="MiniRedis/Pipeline.html">Pipeline</a></code>, accumulate requests and then flush them all in one moment.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#pipeline%28%26block%3APipeline-%3E%29%3AArray%28Value%29-instance-method" class="signature"><strong>#pipeline</strong>(&block : Pipeline -> ) : Array(Value)</a>
+        
+          <div class="summary"><p>Call <code>#pipeline(true, &block)</code>, yielding <code><a href="MiniRedis/Pipeline.html">Pipeline</a></code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#receive%28%2A%2Cskip_queued%3Dfalse%29%3AValue-instance-method" class="signature"><strong>#receive</strong>(*, skip_queued = <span class="n">false</span>) : Value</a>
+        
+          <div class="summary"><p>Read a response.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#send%28command%3AString%29%3ANil-instance-method" class="signature"><strong>#send</strong>(command : String) : Nil</a>
+        
+          <div class="summary"><p>Send a <code>String</code> inline <em>command</em>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#send%28commands%3AEnumerable%29%3ANil-instance-method" class="signature"><strong>#send</strong>(commands : Enumerable) : Nil</a>
+        
+          <div class="summary"><p>Send the <em>commands</em> marshalled according to the <a href="https://redis.io/topics/protocol" target="_blank">Redis Protocol Specification</a>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#send%28%2Acommands%29%3ANil-instance-method" class="signature"><strong>#send</strong>(*commands) : Nil</a>
+        
+          <div class="summary"><p>Send the <em>commands</em> marshalled according to the <a href="https://redis.io/topics/protocol" target="_blank">Redis Protocol Specification</a>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#socket%3ASocket-instance-method" class="signature"><strong>#socket</strong> : Socket</a>
+        
+          <div class="summary"><p>The underlying socket.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#transaction%28read%3ABool%2C%26block%3ATransaction-%3E%29%3AValue%3F-instance-method" class="signature"><strong>#transaction</strong>(read : Bool, &block : Transaction -> ) : Value?</a>
+        
+          <div class="summary"><p>Send <code>"MULTI"</code> command, <code>yield</code> <code><a href="MiniRedis/Transaction.html">Transaction</a></code> and then send <code>"EXEC"</code> command.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#transaction%28%26block%3ATransaction-%3E%29%3AValue-instance-method" class="signature"><strong>#transaction</strong>(&block : Transaction -> ) : Value</a>
+        
+          <div class="summary"><p>Call <code>#transaction(true, &block)</code>, yielding <code><a href="MiniRedis/Transaction.html">Transaction</a></code>.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+<div class="methods-inherited">
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+</div>
+
+
+  <h2>Constructor Detail</h2>
+  
+    <div class="entry-detail" id="new(uri:URI=URI.parse(&amp;quot;redis://localhost:6379&amp;quot;),dns_timeout:Time::Span?=5.seconds,connect_timeout:Time::Span?=5.seconds,read_timeout:Time::Span?=5.seconds,write_timeout:Time::Span?=5.seconds)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(uri : URI = <span class="t">URI</span>.parse(<span class="s">&quot;redis://localhost:6379&quot;</span>), dns_timeout : Time::Span? = <span class="n">5</span>.seconds, connect_timeout : Time::Span? = <span class="n">5</span>.seconds, read_timeout : Time::Span? = <span class="n">5</span>.seconds, write_timeout : Time::Span? = <span class="n">5</span>.seconds)
+
+        <a class="method-permalink" href="#new%28uri%3AURI%3DURI.parse%28%26quot%3Bredis%3A%2F%2Flocalhost%3A6379%26quot%3B%29%2Cdns_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%2Cconnect_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%2Cread_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%2Cwrite_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%29-class-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Initialize with Redis <code>URI</code>.</p>
+
+<pre><code>redis <span class="o">=</span> <span class="t">MiniRedis</span>.<span class="k">new</span>(<span class="t">URI</span>.parse(<span class="t">ENV</span>[<span class="s">&quot;REDIS_URL&quot;</span>]))</code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/mini_redis/blob/69cbe90c3e7b71b3cc5a6686aa04ce04da76dea9/src/mini_redis.cr#L12" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="new(socket:Socket)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(socket : Socket)
+
+        <a class="method-permalink" href="#new%28socket%3ASocket%29-class-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Initialize with raw Crystal <code>Socket</code>.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/mini_redis/blob/69cbe90c3e7b71b3cc5a6686aa04ce04da76dea9/src/mini_redis.cr#L34" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail" id="close-instance-method">
+      <div class="signature">
+        
+        def <strong>close</strong>
+
+        <a class="method-permalink" href="#close-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Close the underlying socket.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/mini_redis/blob/69cbe90c3e7b71b3cc5a6686aa04ce04da76dea9/src/mini_redis.cr#L42" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="command(*args,**nargs):Value-instance-method">
+      <div class="signature">
+        
+        def <strong>command</strong>(*args, **nargs) : <a href="MiniRedis/Value.html">Value</a>
+
+        <a class="method-permalink" href="#command%28%2Aargs%2C%2A%2Anargs%29%3AValue-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Wrap <code><a href="MiniRedis.html#send%28command%3AString%29%3ANil-instance-method">#send</a></code> and <code><a href="MiniRedis.html#receive%28%2A%2Cskip_queued%3Dfalse%29%3AValue-instance-method">#receive</a></code> in one call.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/mini_redis/blob/69cbe90c3e7b71b3cc5a6686aa04ce04da76dea9/src/mini_redis.cr#L72" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="finalize-instance-method">
+      <div class="signature">
+        
+        def <strong>finalize</strong>
+
+        <a class="method-permalink" href="#finalize-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/mini_redis/blob/69cbe90c3e7b71b3cc5a6686aa04ce04da76dea9/src/mini_redis.cr#L37" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="pipeline(read:Bool,&amp;block:Pipeline-&gt;):Array(Value)?-instance-method">
+      <div class="signature">
+        
+        def <strong>pipeline</strong>(read : Bool, &block : <a href="MiniRedis/Pipeline.html">Pipeline</a> -> ) : Array(<a href="MiniRedis/Value.html">Value</a>)?
+
+        <a class="method-permalink" href="#pipeline%28read%3ABool%2C%26block%3APipeline-%3E%29%3AArray%28Value%29%3F-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Yield <code><a href="MiniRedis/Pipeline.html">Pipeline</a></code>, accumulate requests and then flush them all in one moment.
+<em>read</em> argument defines whether to read the response or not
+(improves performance, may be used in throw-away clients).</p>
+
+<p>See <a href="https://redis.io/topics/pipelining" target="_blank">Pipelining docs</a>.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/mini_redis/blob/69cbe90c3e7b71b3cc5a6686aa04ce04da76dea9/src/mini_redis.cr#L142" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="pipeline(&amp;block:Pipeline-&gt;):Array(Value)-instance-method">
+      <div class="signature">
+        
+        def <strong>pipeline</strong>(&block : <a href="MiniRedis/Pipeline.html">Pipeline</a> -> ) : Array(<a href="MiniRedis/Value.html">Value</a>)
+
+        <a class="method-permalink" href="#pipeline%28%26block%3APipeline-%3E%29%3AArray%28Value%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Call <code>#pipeline(true, &block)</code>, yielding <code><a href="MiniRedis/Pipeline.html">Pipeline</a></code>.
+Use this shortcut when you want to read the response.</p>
+
+<pre><code>redis.pipeline <span class="k">do</span> <span class="o">|</span>pipe<span class="o">|</span>
+  pipe.send(<span class="s">&quot;PING&quot;</span>)
+<span class="k">end</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/mini_redis/blob/69cbe90c3e7b71b3cc5a6686aa04ce04da76dea9/src/mini_redis.cr#L133" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="receive(*,skip_queued=false):Value-instance-method">
+      <div class="signature">
+        
+        def <strong>receive</strong>(*, skip_queued = <span class="n">false</span>) : <a href="MiniRedis/Value.html">Value</a>
+
+        <a class="method-permalink" href="#receive%28%2A%2Cskip_queued%3Dfalse%29%3AValue-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Read a response. Blocks until read. The response is cast to a Crystal type
+according to the <a href="https://redis.io/topics/protocol" target="_blank">Redis Protocol Specification</a>.
+For more information on types, see <code><a href="MiniRedis/Value.html">Value</a></code>.</p>
+
+<p>In case of error (<code>-</code> byte), a <code><a href="MiniRedis/Error.html">Error</a></code> is raised.</p>
+
+<p>There is an optional <em>skip_queue</em> argument, which is used in <code><a href="MiniRedis/Transaction.html">Transaction</a></code> mode --
+it skips <code>QUEUED</code> strings, which improves the performance.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/mini_redis/blob/69cbe90c3e7b71b3cc5a6686aa04ce04da76dea9/src/mini_redis.cr#L85" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="send(command:String):Nil-instance-method">
+      <div class="signature">
+        
+        def <strong>send</strong>(command : String) : Nil
+
+        <a class="method-permalink" href="#send%28command%3AString%29%3ANil-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Send a <code>String</code> inline <em>command</em>.
+It's generally faster than the <code>Enumerable</code> version, because it skips marshalling.
+However, inline commands could be a worse fit for operations with binary keys or values.</p>
+
+<p>See <a href="https://redis.io/topics/protocol#inline-commands" target="_blank">Redis Protocol: Inline Commands</a> for more information.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/mini_redis/blob/69cbe90c3e7b71b3cc5a6686aa04ce04da76dea9/src/mini_redis.cr#L54" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="send(commands:Enumerable):Nil-instance-method">
+      <div class="signature">
+        
+        def <strong>send</strong>(commands : Enumerable) : Nil
+
+        <a class="method-permalink" href="#send%28commands%3AEnumerable%29%3ANil-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Send the <em>commands</em> marshalled according to the <a href="https://redis.io/topics/protocol" target="_blank">Redis Protocol Specification</a>.
+For inline commands consider using <code>String</code> version.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/mini_redis/blob/69cbe90c3e7b71b3cc5a6686aa04ce04da76dea9/src/mini_redis.cr#L61" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="send(*commands):Nil-instance-method">
+      <div class="signature">
+        
+        def <strong>send</strong>(*commands) : Nil
+
+        <a class="method-permalink" href="#send%28%2Acommands%29%3ANil-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Send the <em>commands</em> marshalled according to the <a href="https://redis.io/topics/protocol" target="_blank">Redis Protocol Specification</a>.
+For inline commands consider using <code>String</code> version.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/mini_redis/blob/69cbe90c3e7b71b3cc5a6686aa04ce04da76dea9/src/mini_redis.cr#L67" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="socket:Socket-instance-method">
+      <div class="signature">
+        
+        def <strong>socket</strong> : Socket
+
+        <a class="method-permalink" href="#socket%3ASocket-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>The underlying socket.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/mini_redis/blob/69cbe90c3e7b71b3cc5a6686aa04ce04da76dea9/src/mini_redis.cr#L47" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="transaction(read:Bool,&amp;block:Transaction-&gt;):Value?-instance-method">
+      <div class="signature">
+        
+        def <strong>transaction</strong>(read : Bool, &block : <a href="MiniRedis/Transaction.html">Transaction</a> -> ) : <a href="MiniRedis/Value.html">Value</a>?
+
+        <a class="method-permalink" href="#transaction%28read%3ABool%2C%26block%3ATransaction-%3E%29%3AValue%3F-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Send <code>"MULTI"</code> command, <code>yield</code> <code><a href="MiniRedis/Transaction.html">Transaction</a></code> and then send <code>"EXEC"</code> command.
+<em>read</em> argument defines whether to read the response or not
+(improves performance, may be used in throw-away clients).</p>
+
+<p>See <a href="https://redis.io/topics/transactions" target="_blank">Transactions docs</a>.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/mini_redis/blob/69cbe90c3e7b71b3cc5a6686aa04ce04da76dea9/src/mini_redis.cr#L171" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="transaction(&amp;block:Transaction-&gt;):Value-instance-method">
+      <div class="signature">
+        
+        def <strong>transaction</strong>(&block : <a href="MiniRedis/Transaction.html">Transaction</a> -> ) : <a href="MiniRedis/Value.html">Value</a>
+
+        <a class="method-permalink" href="#transaction%28%26block%3ATransaction-%3E%29%3AValue-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Call <code>#transaction(true, &block)</code>, yielding <code><a href="MiniRedis/Transaction.html">Transaction</a></code>.
+Use this shortcut when you want to read the response.</p>
+
+<pre><code>redis.transaction <span class="k">do</span> <span class="o">|</span>tx<span class="o">|</span>
+  tx.send(<span class="s">&quot;SET foo bar&quot;</span>)
+<span class="k">end</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/mini_redis/blob/69cbe90c3e7b71b3cc5a6686aa04ce04da76dea9/src/mini_redis.cr#L162" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+</div>
+
+</body>
+</html>

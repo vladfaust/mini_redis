@@ -2,7 +2,7 @@
 
 [![Built with Crystal](https://img.shields.io/badge/built%20with-crystal-000000.svg?style=flat-square)](https://crystal-lang.org/)
 [![Build status](https://img.shields.io/travis/com/vladfaust/mini_redis/master.svg?style=flat-square)](https://travis-ci.com/vladfaust/mini_redis)
-[![Docs](https://img.shields.io/badge/docs-available-brightgreen.svg?style=flat-square)](https://github.vladfaust.com/mini_redis)
+[![API Docs](https://img.shields.io/badge/api_docs-online-brightgreen.svg?style=flat-square)](https://github.vladfaust.com/mini_redis)
 [![Releases](https://img.shields.io/github/release/vladfaust/mini_redis.svg?style=flat-square)](https://github.com/vladfaust/mini_redis/releases)
 [![Awesome](https://awesome.re/badge-flat2.svg)](https://github.com/veelenga/awesome-crystal)
 [![vladfaust.com](https://img.shields.io/badge/style-.com-lightgrey.svg?longCache=true&style=flat-square&label=vladfaust&colorB=0a83d8)](https://vladfaust.com)

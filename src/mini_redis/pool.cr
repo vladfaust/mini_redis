@@ -8,7 +8,7 @@ class MiniRedis
       uri : URI = URI.parse("redis://localhost:6379"),
       dns_timeout : Time::Span? = 5.seconds,
       connect_timeout : Time::Span? = 5.seconds,
-      read_timeout : Time::Span? = 5.seconds,
+      read_timeout : Time::Span? = nil,
       write_timeout : Time::Span? = 5.seconds
     )
       new(capacity, initial_size) do

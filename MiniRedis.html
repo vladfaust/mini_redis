@@ -125,42 +125,42 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/vladfaust/mini_redis/blob/0f452631cdfcea33f9138ddf930ba2dd7fb346eb/src/mini_redis/errors.cr#L1" target="_blank">
+      <a href="https://github.com/vladfaust/mini_redis/blob/1ab0ce27765034e1416ed36ff0aa7be762659f21/src/mini_redis/errors.cr#L1" target="_blank">
         mini_redis/errors.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/vladfaust/mini_redis/blob/0f452631cdfcea33f9138ddf930ba2dd7fb346eb/src/mini_redis/pipeline.cr#L1" target="_blank">
+      <a href="https://github.com/vladfaust/mini_redis/blob/1ab0ce27765034e1416ed36ff0aa7be762659f21/src/mini_redis/pipeline.cr#L1" target="_blank">
         mini_redis/pipeline.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/vladfaust/mini_redis/blob/0f452631cdfcea33f9138ddf930ba2dd7fb346eb/src/mini_redis/pool.cr#L1" target="_blank">
+      <a href="https://github.com/vladfaust/mini_redis/blob/1ab0ce27765034e1416ed36ff0aa7be762659f21/src/mini_redis/pool.cr#L1" target="_blank">
         mini_redis/pool.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/vladfaust/mini_redis/blob/0f452631cdfcea33f9138ddf930ba2dd7fb346eb/src/mini_redis/transaction.cr#L1" target="_blank">
+      <a href="https://github.com/vladfaust/mini_redis/blob/1ab0ce27765034e1416ed36ff0aa7be762659f21/src/mini_redis/transaction.cr#L1" target="_blank">
         mini_redis/transaction.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/vladfaust/mini_redis/blob/0f452631cdfcea33f9138ddf930ba2dd7fb346eb/src/mini_redis/value.cr#L1" target="_blank">
+      <a href="https://github.com/vladfaust/mini_redis/blob/1ab0ce27765034e1416ed36ff0aa7be762659f21/src/mini_redis/value.cr#L1" target="_blank">
         mini_redis/value.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/vladfaust/mini_redis/blob/0f452631cdfcea33f9138ddf930ba2dd7fb346eb/src/mini_redis.cr#L6" target="_blank">
+      <a href="https://github.com/vladfaust/mini_redis/blob/1ab0ce27765034e1416ed36ff0aa7be762659f21/src/mini_redis.cr#L6" target="_blank">
         mini_redis.cr
       </a>
     
@@ -175,7 +175,7 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#new%28uri%3AURI%3DURI.parse%28%26quot%3Bredis%3A%2F%2Flocalhost%3A6379%26quot%3B%29%2Cdns_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%2Cconnect_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%2Cread_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%2Cwrite_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%29-class-method" class="signature"><strong>.new</strong>(uri : URI = <span class="t">URI</span>.parse(<span class="s">&quot;redis://localhost:6379&quot;</span>), dns_timeout : Time::Span? = <span class="n">5</span>.seconds, connect_timeout : Time::Span? = <span class="n">5</span>.seconds, read_timeout : Time::Span? = <span class="n">5</span>.seconds, write_timeout : Time::Span? = <span class="n">5</span>.seconds)</a>
+        <a href="#new%28uri%3AURI%3DURI.parse%28%26quot%3Bredis%3A%2F%2Flocalhost%3A6379%26quot%3B%29%2Cdns_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%2Cconnect_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%2Cread_timeout%3ATime%3A%3ASpan%3F%3Dnil%2Cwrite_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%29-class-method" class="signature"><strong>.new</strong>(uri : URI = <span class="t">URI</span>.parse(<span class="s">&quot;redis://localhost:6379&quot;</span>), dns_timeout : Time::Span? = <span class="n">5</span>.seconds, connect_timeout : Time::Span? = <span class="n">5</span>.seconds, read_timeout : Time::Span? = <span class="n">nil</span>, write_timeout : Time::Span? = <span class="n">5</span>.seconds)</a>
         
           <div class="summary"><p>Initialize with Redis <code>URI</code>.</p></div>
         
@@ -312,12 +312,12 @@
 
   <h2>Constructor Detail</h2>
   
-    <div class="entry-detail" id="new(uri:URI=URI.parse(&amp;quot;redis://localhost:6379&amp;quot;),dns_timeout:Time::Span?=5.seconds,connect_timeout:Time::Span?=5.seconds,read_timeout:Time::Span?=5.seconds,write_timeout:Time::Span?=5.seconds)-class-method">
+    <div class="entry-detail" id="new(uri:URI=URI.parse(&amp;quot;redis://localhost:6379&amp;quot;),dns_timeout:Time::Span?=5.seconds,connect_timeout:Time::Span?=5.seconds,read_timeout:Time::Span?=nil,write_timeout:Time::Span?=5.seconds)-class-method">
       <div class="signature">
         
-        def self.<strong>new</strong>(uri : URI = <span class="t">URI</span>.parse(<span class="s">&quot;redis://localhost:6379&quot;</span>), dns_timeout : Time::Span? = <span class="n">5</span>.seconds, connect_timeout : Time::Span? = <span class="n">5</span>.seconds, read_timeout : Time::Span? = <span class="n">5</span>.seconds, write_timeout : Time::Span? = <span class="n">5</span>.seconds)
+        def self.<strong>new</strong>(uri : URI = <span class="t">URI</span>.parse(<span class="s">&quot;redis://localhost:6379&quot;</span>), dns_timeout : Time::Span? = <span class="n">5</span>.seconds, connect_timeout : Time::Span? = <span class="n">5</span>.seconds, read_timeout : Time::Span? = <span class="n">nil</span>, write_timeout : Time::Span? = <span class="n">5</span>.seconds)
 
-        <a class="method-permalink" href="#new%28uri%3AURI%3DURI.parse%28%26quot%3Bredis%3A%2F%2Flocalhost%3A6379%26quot%3B%29%2Cdns_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%2Cconnect_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%2Cread_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%2Cwrite_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%29-class-method">#</a>
+        <a class="method-permalink" href="#new%28uri%3AURI%3DURI.parse%28%26quot%3Bredis%3A%2F%2Flocalhost%3A6379%26quot%3B%29%2Cdns_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%2Cconnect_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%2Cread_timeout%3ATime%3A%3ASpan%3F%3Dnil%2Cwrite_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%29-class-method">#</a>
       </div>
       
         <div class="doc"><p>Initialize with Redis <code>URI</code>.</p>
@@ -327,7 +327,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/vladfaust/mini_redis/blob/0f452631cdfcea33f9138ddf930ba2dd7fb346eb/src/mini_redis.cr#L12" target="_blank">View source</a>]
+          [<a href="https://github.com/vladfaust/mini_redis/blob/1ab0ce27765034e1416ed36ff0aa7be762659f21/src/mini_redis.cr#L12" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -345,7 +345,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/vladfaust/mini_redis/blob/0f452631cdfcea33f9138ddf930ba2dd7fb346eb/src/mini_redis.cr#L34" target="_blank">View source</a>]
+          [<a href="https://github.com/vladfaust/mini_redis/blob/1ab0ce27765034e1416ed36ff0aa7be762659f21/src/mini_redis.cr#L34" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -370,7 +370,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/vladfaust/mini_redis/blob/0f452631cdfcea33f9138ddf930ba2dd7fb346eb/src/mini_redis.cr#L42" target="_blank">View source</a>]
+          [<a href="https://github.com/vladfaust/mini_redis/blob/1ab0ce27765034e1416ed36ff0aa7be762659f21/src/mini_redis.cr#L42" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -388,7 +388,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/vladfaust/mini_redis/blob/0f452631cdfcea33f9138ddf930ba2dd7fb346eb/src/mini_redis.cr#L72" target="_blank">View source</a>]
+          [<a href="https://github.com/vladfaust/mini_redis/blob/1ab0ce27765034e1416ed36ff0aa7be762659f21/src/mini_redis.cr#L72" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -404,7 +404,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/vladfaust/mini_redis/blob/0f452631cdfcea33f9138ddf930ba2dd7fb346eb/src/mini_redis.cr#L37" target="_blank">View source</a>]
+          [<a href="https://github.com/vladfaust/mini_redis/blob/1ab0ce27765034e1416ed36ff0aa7be762659f21/src/mini_redis.cr#L37" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -426,7 +426,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/vladfaust/mini_redis/blob/0f452631cdfcea33f9138ddf930ba2dd7fb346eb/src/mini_redis.cr#L142" target="_blank">View source</a>]
+          [<a href="https://github.com/vladfaust/mini_redis/blob/1ab0ce27765034e1416ed36ff0aa7be762659f21/src/mini_redis.cr#L142" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -449,7 +449,7 @@ Use this shortcut when you want to read the response.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/vladfaust/mini_redis/blob/0f452631cdfcea33f9138ddf930ba2dd7fb346eb/src/mini_redis.cr#L133" target="_blank">View source</a>]
+          [<a href="https://github.com/vladfaust/mini_redis/blob/1ab0ce27765034e1416ed36ff0aa7be762659f21/src/mini_redis.cr#L133" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -474,7 +474,7 @@ it skips <code>QUEUED</code> strings, which improves the performance.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/vladfaust/mini_redis/blob/0f452631cdfcea33f9138ddf930ba2dd7fb346eb/src/mini_redis.cr#L85" target="_blank">View source</a>]
+          [<a href="https://github.com/vladfaust/mini_redis/blob/1ab0ce27765034e1416ed36ff0aa7be762659f21/src/mini_redis.cr#L85" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -496,7 +496,7 @@ However, inline commands could be a worse fit for operations with binary keys or
       <br/>
       <div>
         
-          [<a href="https://github.com/vladfaust/mini_redis/blob/0f452631cdfcea33f9138ddf930ba2dd7fb346eb/src/mini_redis.cr#L54" target="_blank">View source</a>]
+          [<a href="https://github.com/vladfaust/mini_redis/blob/1ab0ce27765034e1416ed36ff0aa7be762659f21/src/mini_redis.cr#L54" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -515,7 +515,7 @@ For inline commands consider using <code>String</code> version.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/vladfaust/mini_redis/blob/0f452631cdfcea33f9138ddf930ba2dd7fb346eb/src/mini_redis.cr#L61" target="_blank">View source</a>]
+          [<a href="https://github.com/vladfaust/mini_redis/blob/1ab0ce27765034e1416ed36ff0aa7be762659f21/src/mini_redis.cr#L61" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -534,7 +534,7 @@ For inline commands consider using <code>String</code> version.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/vladfaust/mini_redis/blob/0f452631cdfcea33f9138ddf930ba2dd7fb346eb/src/mini_redis.cr#L67" target="_blank">View source</a>]
+          [<a href="https://github.com/vladfaust/mini_redis/blob/1ab0ce27765034e1416ed36ff0aa7be762659f21/src/mini_redis.cr#L67" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -552,7 +552,7 @@ For inline commands consider using <code>String</code> version.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/vladfaust/mini_redis/blob/0f452631cdfcea33f9138ddf930ba2dd7fb346eb/src/mini_redis.cr#L47" target="_blank">View source</a>]
+          [<a href="https://github.com/vladfaust/mini_redis/blob/1ab0ce27765034e1416ed36ff0aa7be762659f21/src/mini_redis.cr#L47" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -574,7 +574,7 @@ For inline commands consider using <code>String</code> version.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/vladfaust/mini_redis/blob/0f452631cdfcea33f9138ddf930ba2dd7fb346eb/src/mini_redis.cr#L171" target="_blank">View source</a>]
+          [<a href="https://github.com/vladfaust/mini_redis/blob/1ab0ce27765034e1416ed36ff0aa7be762659f21/src/mini_redis.cr#L171" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -597,7 +597,7 @@ Use this shortcut when you want to read the response.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/vladfaust/mini_redis/blob/0f452631cdfcea33f9138ddf930ba2dd7fb346eb/src/mini_redis.cr#L162" target="_blank">View source</a>]
+          [<a href="https://github.com/vladfaust/mini_redis/blob/1ab0ce27765034e1416ed36ff0aa7be762659f21/src/mini_redis.cr#L162" target="_blank">View source</a>]
         
       </div>
     </div>

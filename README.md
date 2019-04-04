@@ -35,7 +35,7 @@ In comparison with [crystal-redis](https://github.com/stefanwille/crystal-redis)
 dependencies:
   mini_redis:
     github: vladfaust/mini_redis
-    version: ~> 0.1.0
+    version: ~> 0.2.0
 ```
 
 2. Run `shards install`

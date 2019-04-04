@@ -80,7 +80,7 @@ class MiniRedis
             started_at = Time.monotonic
 
             loop do
-              Fiber.yield
+              sleep(0.01)
 
               if redis = @free.shift?
                 return redis
@@ -90,7 +90,7 @@ class MiniRedis
             end
           else
             loop do
-              Fiber.yield
+              sleep(0.01)
 
               if redis = @free.shift?
                 return redis

@@ -30,6 +30,8 @@ class MiniRedis
     new(socket)
   end
 
+  def_equals_and_hash socket
+
   # Initialize with raw Crystal `Socket`.
   def initialize(@socket : Socket)
   end

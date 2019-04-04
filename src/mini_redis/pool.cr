@@ -1,7 +1,8 @@
 class MiniRedis
-  # A `MiniRedis` connection pool. It has dynamic `#capacity` and `#block` value.
+  # A `MiniRedis` connection pool. It has dynamic `#capacity` and `#block` values.
   class Pool
-    # Initialize a pool with `#block` initializing a `MiniRedis` client from the *uri*.
+    # Initialize a new pool with `#block` initializing a
+    # `MiniRedis` client from the *uri*.
     def self.new(
       capacity : Int32 = Int32::MAX,
       initial_size : Int32 = 0,
@@ -22,11 +23,11 @@ class MiniRedis
       end
     end
 
-    # The pool's capacity. Could be changed after the pool is initialized.
+    # The pool's capacity. Can be changed after the pool is initialized.
     property capacity : Int32
 
-    # The pool's block to call to initialize a new `MiniRedis`.
-    # Could be changed after the pool is initialized.
+    # The pool's block to call to initialize a new `MiniRedis` instance.
+    # Can be changed after the pool is initialized.
     property block : Proc(MiniRedis)
 
     # The number of free clients in this pool.

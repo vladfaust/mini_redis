@@ -46,33 +46,118 @@ class MiniRedis
   # The underlying socket.
   getter socket
 
+  # Whether is current connection in transaction mode. See `#transaction`.
+  getter? transaction : Bool = false
+
+  # Whether is current connection in pipeline mode. See `#pipeline`.
+  getter? pipeline : Bool = false
+
   # Send a `String` inline *command*.
-  # It's generally faster than the `Enumerable` version, because it skips marshalling.
-  # However, inline commands could be a worse fit for operations with binary keys or values.
+  # It's a bit slower than the `Enumerable` (i.e. bytes) version,
+  # but allows to pass commands in one line.
   #
   # See [Redis Protocol: Inline Commands](https://redis.io/topics/protocol#inline-commands) for more information.
-  def send(command : String) : Nil
+  def send(command : String) : Value
     @socket << command << "\r\n"
-    @socket.flush
+    send_impl
   end
 
   # Send the *commands* marshalled according to the [Redis Protocol Specification](https://redis.io/topics/protocol).
-  # For inline commands consider using `String` version.
-  def send(commands : Enumerable) : Nil
+  def send(commands : Enumerable) : Value
     marshal(commands, @socket)
-    @socket.flush
+    send_impl
   end
 
   # ditto
-  def send(*commands) : Nil
+  def send(*commands) : Value | Nil
     send(commands)
   end
 
-  # Wrap `#send` and `#receive` in one call.
-  def command(*args, **nargs) : Value
-    send(*args, **nargs)
-    receive
+  @queued = 0
+
+  # Yield `self`, accumulate requests and then flush them all in one moment.
+  # See [Pipelining docs](https://redis.io/topics/pipelining).
+  #
+  # It returns an `Array` of `Value`s.
+  #
+  # ```
+  # response = redis.pipeline do |pipe|
+  #   pipe.send("PING")
+  # end
+  #
+  # pp response # => Array([MiniRedis::Value(@raw="PONG")])
+  # ```
+  #
+  # NOTE: `#send` returns an `uninitalized Value` when in pipeline mode.
+  # Trying to access it would crash the program. Use `#pipeline?` if you want to be sure.
+  #
+  # ```
+  # # When you're not sure about the `redis` type...
+  #
+  # # Wrong ✖️
+  # puts redis.send("PING") # May crash with `Invalid memory access`
+  #
+  # # Right ✔️
+  # unless redis.pipeline?
+  #   puts redis.send("PING")
+  # end
+  # ```
+  def pipeline(&block : self ->) : Array(Value)
+    @pipeline = true
+    @queued = 0
+
+    yield(self)
+
+    @socket.flush
+    @pipeline = false
+
+    @queued.times.reduce(Array(Value).new(@queued)) do |ary|
+      ary << receive
+    end
   end
+
+  # Send `"MULTI"` command, yield `self` and then send `"EXEC"` command.
+  # See [Transactions docs](https://redis.io/topics/transactions).
+  #
+  # It returns a `Value` containing an `Array` of `Value`s.
+  #
+  # ```
+  # response = redis.transaction do |tx|
+  #   pp tx.send("SET foo bar") # => MiniRedis::Value(@raw="QUEUED")
+  # end
+  #
+  # pp response # => MiniRedis::Value(@raw=[MiniRedis::Value(@raw=Bytes)])
+  # ```
+  def transaction(&block : self ->) : Value
+    send("MULTI")
+
+    @transaction = true.try do
+      yield(self); false
+    end
+
+    send("EXEC")
+  end
+
+  # Internal `#send` implementation.
+  protected def send_impl : Value
+    unless @pipeline
+      @socket.flush
+    end
+
+    if @pipeline
+      @queued += 1
+      value = uninitialized Value
+    elsif @transaction
+      value = receive(skip_queued: true)
+    else
+      value = receive
+    end
+
+    return value
+  end
+
+  # :nodoc:
+  QUEUED_BYTESIZE = "QUEUED\r\n".bytesize
 
   # Read a response. Blocks until read. The response is cast to a Crystal type
   # according to the [Redis Protocol Specification](https://redis.io/topics/protocol).
@@ -81,8 +166,8 @@ class MiniRedis
   # In case of error (`-` byte), a `Error` is raised.
   #
   # There is an optional *skip_queue* argument, which is used in `Transaction` mode --
-  # it skips `QUEUED` strings, which improves the performance.
-  def receive(*, skip_queued = false) : Value
+  # it skips reading `"QUEUED"` strings, which improves the performance.
+  protected def receive(*, skip_queued = false) : Value
     type = @socket.read_char
 
     case type
@@ -101,8 +186,8 @@ class MiniRedis
       return Value.new(bytes)
     when '+'
       if skip_queued
-        @socket.skip("QUEUED\r\n".bytesize)
-        return Value.new(nil)
+        @socket.skip(QUEUED_BYTESIZE)
+        return Value.new("QUEUED")
       else
         return Value.new(read_line)
       end
@@ -120,68 +205,6 @@ class MiniRedis
     else
       raise Error.new("Received invalid type string '#{type}'")
     end
-  end
-
-  # Call `#pipeline(true, &block)`, yielding `Pipeline`.
-  # Use this shortcut when you want to read the response.
-  #
-  # ```
-  # redis.pipeline do |pipe|
-  #   pipe.send("PING")
-  # end
-  # ```
-  def pipeline(&block : Pipeline ->) : Array(Value)
-    pipeline(true, &block).not_nil!
-  end
-
-  # Yield `Pipeline`, accumulate requests and then flush them all in one moment.
-  # *read* argument defines whether to read the response or not
-  # (improves performance, may be used in throw-away clients).
-  #
-  # See [Pipelining docs](https://redis.io/topics/pipelining).
-  def pipeline(read : Bool, &block : Pipeline ->) : Array(Value)?
-    pipe = Pipeline.new(self)
-    yield(pipe)
-    @socket.flush
-
-    if read
-      pipe.queued.times.reduce(Array(Value).new(pipe.queued)) do |ary|
-        ary << receive
-      end
-    end
-  end
-
-  # Call `#transaction(true, &block)`, yielding `Transaction`.
-  # Use this shortcut when you want to read the response.
-  #
-  # ```
-  # redis.transaction do |tx|
-  #   tx.send("SET foo bar")
-  # end
-  # ```
-  def transaction(&block : Transaction ->) : Value
-    transaction(true, &block).not_nil!
-  end
-
-  # Send `"MULTI"` command, `yield` `Transaction` and then send `"EXEC"` command.
-  # *read* argument defines whether to read the response or not
-  # (improves performance, may be used in throw-away clients).
-  #
-  # See [Transactions docs](https://redis.io/topics/transactions).
-  def transaction(read : Bool, &block : Transaction ->) : Value?
-    command("MULTI")
-
-    tx = Transaction.new(self)
-    yield(tx)
-
-    if read
-      tx.queued.times do
-        receive(skip_queued: true)
-      end
-    end
-
-    exec_response = command("EXEC")
-    return exec_response if read
   end
 
   protected def read_line : String

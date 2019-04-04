@@ -3,25 +3,13 @@ require "./spec_helper"
 describe MiniRedis do
   redis = MiniRedis.new(uri: URI.parse(ENV["REDIS_URL"]))
 
-  describe "#command" do
-    it do
-      redis.command("SET", "foo", "bar".to_slice).raw.as(String).should eq "OK"
-    end
-  end
-
   describe "#send" do
     it do
-      redis.send("GET foo")
+      redis.send("SET", "foo", "bar".to_slice).raw.as(String).should eq "OK"
     end
   end
 
-  describe "#receive" do
-    it do
-      String.new(redis.receive.raw.as(Bytes)).should eq "bar"
-    end
-  end
-
-  describe "pipeline" do
+  describe "#pipeline" do
     it do
       response = redis.pipeline do |pipe|
         pipe.send("SET foo baz")
@@ -32,10 +20,10 @@ describe MiniRedis do
     end
   end
 
-  describe "transaction" do
+  describe "#transaction" do
     it do
       response = redis.transaction do |tx|
-        tx.send("SET", "foo", "qux")
+        tx.send("SET", "foo", "qux".to_slice)
         tx.send("GET foo")
       end
 

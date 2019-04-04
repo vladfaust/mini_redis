@@ -11,9 +11,20 @@ class MiniRedis
   # ```
   #
   # ```
-  # response = String.new(redis.command("GET foo").raw.as(Bytes))
+  # response = redis.transaction do |tx|
+  #   pp tx.send("SET foo bar") # => MiniRedis::Value(@raw="QUEUED")
+  # end
+  #
+  # response = String.new(response.raw.as(Array).first.raw.as(Bytes))
+  # pp response # => "bar"
+  #
+  # response = redis.send("GET foo")
+  # response = String.new(response.raw.as(Bytes))
   # pp response # => "bar"
   # ```
+  #
+  # Reminder — do not try to directly print a `MiniRedis#send` response when in
+  # pipeline mode! See `MiniRedis#pipeline` docs.
   struct Value
     getter raw
 

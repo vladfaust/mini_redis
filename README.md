@@ -25,7 +25,7 @@ Thanks to all my patrons, I can build and support beautiful Open Source Software
 
 MiniRedis is a light-weight low-level alternative to existing Redis client implementations.
 
-In comparison with [crystal-redis](https://github.com/stefanwille/crystal-redis), MiniRedis is slightly faster, has first-class support for raw bytes and doesn't need to be updated with every Redis release. On the other hand, MiniRedis doesn't have commands API (i.e. instead of `redis.ping` you should write `redis.command("PING")`). However, such a low-level interface terminates the dependency on the third-party client maintainer (i.e. me), which makes it a perfect fit to use within a shard.
+In comparison with [crystal-redis](https://github.com/stefanwille/crystal-redis), MiniRedis is slightly faster, has first-class support for raw bytes and doesn't need to be updated with every Redis release. On the other hand, MiniRedis doesn't have commands API (i.e. instead of `redis.ping` you should write `redis.send("PING")`). However, such a low-level interface terminates the dependency on the third-party client maintainer (i.e. me), which makes it a perfect fit to use within a shard.
 
 ## Installation
 
@@ -48,37 +48,33 @@ require "mini_redis"
 redis = MiniRedis.new
 
 # Inline (i.e. one-line) commands are usually faster, because they don't need marshalling
-pp redis.command("PING").raw.as(String) # => "PONG"
+pp redis.send("PING").raw.as(String) # => "PONG"
 
 # MiniRedis responses wrap `Int64 | String | Bytes | Nil | Array(Value)` values, which are
 # properly mapped to `integer`, `simple string`, `bulk string`, `nil` and `array` Redis values
-pp redis.command("SET foo bar").raw.as(String) # => "OK"
-bytes = redis.command("GET foo").raw.as(Bytes)
+pp redis.send("SET foo bar").raw.as(String) # => "OK"
+bytes = redis.send("GET foo").raw.as(Bytes)
 pp String.new(bytes) # => "bar"
 
 # It is possible to declare commands as enumerables (or pass as many arguments),
 # so they are going to be marshalled according to the Redis protocol.
-# It is particulary useful for commands with binary payloads
-redis.command({"set", "foo", "bar".to_slice})
-redis.command("set", "foo", "bar".to_slice)
-
-# It is possible to split sending and receiving the response
-redis.send("SET foo bar")
-redis.receive
+# It is particulary useful for commands with binary payloads and usually faster
+redis.send({"set", "foo", "bar".to_slice})
+redis.send("set", "foo", "bar".to_slice)
 
 # Pipelining
 response = redis.pipeline do |pipe|
   pipe.send("SET foo bar")
 end
 
-pp typeof(response) # => Array(MiniRedis::Value)
+pp typeof(response) # => [MiniRedis::Value(@raw="OK")]
 
 # Transactions
 response = redis.transaction do |tx|
   tx.send("SET foo bar")
 end
 
-pp typeof(response) # => MiniRedis::Value
+pp typeof(response) # => MiniRedis::Value(@raw=[MiniRedis::Value(@raw="OK")])
 ```
 
 ## Development

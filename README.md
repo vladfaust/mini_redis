@@ -19,6 +19,36 @@ MiniRedis is a light-weight low-level alternative to existing Redis client imple
 
 In comparison with [crystal-redis](https://github.com/stefanwille/crystal-redis), MiniRedis is slightly faster, has first-class support for raw bytes and doesn't need to be updated with every Redis release. On the other hand, MiniRedis doesn't have commands API (i.e. instead of `redis.ping` you should write `redis.send("PING")`). However, such a low-level interface terminates the dependency on the third-party client maintainer (i.e. me), which makes it a perfect fit to use within a shard.
 
+### Benchmarks
+
+Benchmarks code can be found at <https://github.com/vladfaust/mini_redis-benchmarks>.
+These are recent results of comparison MiniRedis with [crystal-redis](https://github.com/stefanwille/crystal-redis).
+
+#### `send` benchmarks
+
+```sh
+> env REDIS_URL=redis://localhost:6379/1 crystal src/send.cr --release
+Begin benchmarking...
+    mini_redis inline  13.23k ( 75.61µs) (± 2.19%)   32 B/op   1.02× slower
+mini_redis marshalled  13.51k ( 74.04µs) (± 2.54%)   32 B/op        fastest
+     redis marshalled  13.14k (  76.1µs) (± 2.76%)  368 B/op   1.03× slower
+```
+
+As we can see, MiniRedis is **much** more memory-efficient.
+
+#### Pipeline mode benchmarks
+
+1 million pipelined `send`s, average from 30 times repeats:
+
+```sh
+> env REDIS_URL=redis://localhost:6379/1 crystal src/pipeline.cr --release
+MiniRedis (inline: t):  1.734s    0.577M ops/s
+MiniRedis (inline: f):  898.669ms 1.113M ops/s
+Redis                :  1.465s    0.683M ops/s
+```
+
+MiniRedis is almost **twice** as fast as crystal-redis in pipeline mode!
+
 ## Installation
 
 1. Add the dependency to your `shard.yml`:

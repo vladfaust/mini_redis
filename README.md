@@ -62,6 +62,8 @@ dependencies:
 
 2. Run `shards install`
 
+This shard follows [Semantic Versioning v2.0.0](http://semver.org/), so check [releases](https://github.com/vladfaust/timer.cr/releases) and change the `version` accordingly. Note that until Crystal is officially released, this shard would be in beta state (`0.*.*`), with every **minor** release considered breaking. For example, `0.1.0` → `0.2.0` is breaking and `0.1.0` → `0.1.1` is not.
+
 ## Usage
 
 ```crystal

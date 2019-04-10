@@ -69,8 +69,8 @@ require "mini_redis"
 
 redis = MiniRedis.new
 
-# Inline (i.e. one-line) commands are usually faster, because they don't need marshalling
-pp redis.send("PING").raw.as(String) # => "PONG"
+# Inline (i.e. one-line) commands allow to have simpler syntax but usually slower
+pp redis.send("GET foo").raw # => nil
 
 # MiniRedis responses wrap `Int64 | String | Bytes | Nil | Array(Value)` values, which are
 # properly mapped to `integer`, `simple string`, `bulk string`, `nil` and `array` Redis values
@@ -81,10 +81,12 @@ pp String.new(bytes) # => "bar"
 # It is possible to declare commands as enumerables (or pass as many arguments),
 # so they are going to be marshalled according to the Redis protocol.
 # It is particulary useful for commands with binary payloads and usually faster
-redis.send({"set", "foo", "bar".to_slice})
+redis.send({"set", "foo", "bar"})
 redis.send("set", "foo", "bar".to_slice)
 
 # Pipelining
+#
+
 response = redis.pipeline do |pipe|
   pipe.send("SET foo bar")
 end
@@ -92,11 +94,26 @@ end
 pp typeof(response) # => [MiniRedis::Value(@raw="OK")]
 
 # Transactions
+#
+
 response = redis.transaction do |tx|
   tx.send("SET foo bar")
 end
 
 pp typeof(response) # => MiniRedis::Value(@raw=[MiniRedis::Value(@raw="OK")])
+
+# Connection pool
+#
+
+pool = MiniRedis::Pool.new
+
+response = pool.get do |redis|
+  redis.send({"PING"})
+end
+
+conn = pool.get
+conn.send("PING")
+pool.release(conn)
 ```
 
 ## Development

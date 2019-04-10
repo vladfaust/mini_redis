@@ -4,9 +4,9 @@ class MiniRedis
     # Initialize a new pool with `#block` initializing a
     # `MiniRedis` client from the *uri*.
     def self.new(
+      uri : URI = URI.parse("redis://localhost:6379"),
       capacity : Int32 = Int32::MAX,
       initial_size : Int32 = 0,
-      uri : URI = URI.parse("redis://localhost:6379"),
       dns_timeout : Time::Span? = 5.seconds,
       connect_timeout : Time::Span? = 5.seconds,
       read_timeout : Time::Span? = nil,

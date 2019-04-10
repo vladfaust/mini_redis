@@ -1,7 +1,7 @@
 require "../spec_helper"
 
 describe MiniRedis::Pool do
-  pool = MiniRedis::Pool.new(uri: URI.parse(ENV["REDIS_URL"]))
+  pool = MiniRedis::Pool.new(URI.parse(ENV["REDIS_URL"]))
 
   it do
     channel = Channel(MiniRedis::Value).new(5)

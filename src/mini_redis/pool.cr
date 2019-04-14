@@ -60,8 +60,9 @@ class MiniRedis
     def get(timeout : Time::Span? = nil, &block : MiniRedis ->)
       redis = get(timeout)
       result = yield(redis)
-      release(redis)
       result
+    ensure
+      release(redis) if redis
     end
 
     # Return a free `MiniRedis` client.

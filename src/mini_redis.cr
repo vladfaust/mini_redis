@@ -1,16 +1,20 @@
 require "socket"
+require "logger"
 
 require "./mini_redis/*"
 
 # A light-weight low-level Redis client.
 class MiniRedis
-  # Initialize with Redis `URI`.
+  # Initialize with Redis *uri* and optional *logger*.
+  # The *logger* would log outcoming commands with *logger_severity* level.
   #
   # ```
-  # redis = MiniRedis.new(URI.parse(ENV["REDIS_URL"]))
+  # redis = MiniRedis.new(URI.parse(ENV["REDIS_URL"]), logger: Logger.new(STDOUT))
   # ```
   def self.new(
     uri : URI = URI.parse("redis://localhost:6379"),
+    logger : Logger? = nil,
+    logger_severity : Logger::Severity = Logger::Severity::INFO,
     dns_timeout : Time::Span? = 5.seconds,
     connect_timeout : Time::Span? = 5.seconds,
     read_timeout : Time::Span? = nil,
@@ -27,13 +31,18 @@ class MiniRedis
     socket.read_timeout = read_timeout
     socket.write_timeout = write_timeout
 
-    new(socket)
+    new(socket, logger, logger_severity)
   end
 
   def_equals_and_hash socket
 
-  # Initialize with raw Crystal `Socket`.
-  def initialize(@socket : Socket)
+  # Initialize with raw Crystal `Socket` and optional *logger*.
+  # The *logger* would log outcoming commands with *logger_severity* level.
+  def initialize(
+    @socket : Socket,
+    @logger : Logger? = nil,
+    @logger_severity : Logger::Severity = Logger::Severity::INFO
+  )
   end
 
   def finalize
@@ -60,12 +69,15 @@ class MiniRedis
   #
   # See [Redis Protocol: Inline Commands](https://redis.io/topics/protocol#inline-commands) for more information.
   def send(command : String) : Value
+    @logger.try &.log(@logger_severity, command)
     @socket << command << "\r\n"
     send_impl
   end
 
   # Send the *commands* marshalled according to the [Redis Protocol Specification](https://redis.io/topics/protocol).
   def send(commands : Enumerable) : Value
+    @logger.try &.log(@logger_severity, commands.join(' ') { |c| c.is_a?(Bytes) ? "<binary>" : c })
+
     @socket << "*" << commands.size << "\r\n"
 
     commands.each do |command|

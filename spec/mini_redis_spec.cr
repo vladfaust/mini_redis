@@ -1,7 +1,7 @@
 require "./spec_helper"
 
 describe MiniRedis do
-  redis = MiniRedis.new(uri: URI.parse(ENV["REDIS_URL"]))
+  redis = MiniRedis.new(uri: URI.parse(ENV["REDIS_URL"]), logger: Logger.new(STDOUT))
 
   describe "#send" do
     it do

@@ -7,6 +7,8 @@ class MiniRedis
       uri : URI = URI.parse("redis://localhost:6379"),
       capacity : Int32 = Int32::MAX,
       initial_size : Int32 = 0,
+      logger : Logger? = nil,
+      logger_severity : Logger::Severity = Logger::Severity::INFO,
       dns_timeout : Time::Span? = 5.seconds,
       connect_timeout : Time::Span? = 5.seconds,
       read_timeout : Time::Span? = nil,
@@ -15,6 +17,8 @@ class MiniRedis
       new(capacity, initial_size) do
         MiniRedis.new(
           uri: uri,
+          logger: logger,
+          logger_severity: logger_severity,
           dns_timeout: dns_timeout,
           connect_timeout: connect_timeout,
           read_timeout: read_timeout,

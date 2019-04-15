@@ -17,7 +17,11 @@ A light-weight Redis client for [Crystal](https://crystal-lang.org/).
 
 MiniRedis is a light-weight low-level alternative to existing Redis client implementations.
 
-In comparison with [crystal-redis](https://github.com/stefanwille/crystal-redis), MiniRedis is slightly faster, has first-class support for raw bytes and doesn't need to be updated with every Redis release. On the other hand, MiniRedis doesn't have commands API (i.e. instead of `redis.ping` you should write `redis.send("PING")`). However, such a low-level interface terminates the dependency on the third-party client maintainer (i.e. me), which makes it a perfect fit to use within a shard.
+In comparison with [crystal-redis](https://github.com/stefanwille/crystal-redis), MiniRedis has lesser memory consumption, built-in logging and first-class support for raw bytes. It also doesn't need to be updated with every Redis release.
+
+On the other hand, MiniRedis doesn't have commands API (i.e. instead of `redis.ping` you should write `redis.send("PING")`). However, such a low-level interface terminates the dependency on the third-party client maintainer (i.e. me), which makes it a perfect fit to use within a shard.
+
+You can always find the actual Redis commands API at <https://redis.io/commands>.
 
 ### Benchmarks
 
@@ -28,13 +32,11 @@ These are recent results of comparison MiniRedis with [crystal-redis](https://gi
 
 ```sh
 > env REDIS_URL=redis://localhost:6379/1 crystal src/send.cr --release
-Begin benchmarking...
-    mini_redis inline  13.23k ( 75.61µs) (± 2.19%)   32 B/op   1.02× slower
-mini_redis marshalled  13.51k ( 74.04µs) (± 2.54%)   32 B/op        fastest
-     redis marshalled  13.14k (  76.1µs) (± 2.76%)  368 B/op   1.03× slower
+mini_redis     13.4k ( 74.62µs) (± 2.50%)   32 B/op        fastest
+crystal-redis  13.36k ( 74.83µs) (± 2.97%)  144 B/op   1.00× slower
 ```
 
-As we can see, MiniRedis is **much** more memory-efficient.
+**Conclusion:** `mini_redis` is more memory-efficient.
 
 #### Pipeline mode benchmarks
 
@@ -42,12 +44,11 @@ As we can see, MiniRedis is **much** more memory-efficient.
 
 ```sh
 > env REDIS_URL=redis://localhost:6379/1 crystal src/pipeline.cr --release
-MiniRedis (inline: t):  1.734s    0.577M ops/s
-MiniRedis (inline: f):  898.669ms 1.113M ops/s
-Redis                :  1.465s    0.683M ops/s
+mini_redis    914.569ms 1.093M ops/s
+crystal-redis 908.182ms 1.101M ops/s
 ```
 
-MiniRedis is almost **twice** as fast as crystal-redis in pipeline mode!
+**Conclusion:** `mini_redis` has almost the same speed as `crystal-redis`.
 
 ## Installation
 
@@ -71,51 +72,58 @@ require "mini_redis"
 
 redis = MiniRedis.new
 
-# Inline (i.e. one-line) commands allow to have simpler syntax but usually slower
-pp redis.send("GET foo").raw # => nil
+# MiniRedis responses wrap `Int64 | String | Bytes | Nil | Array(Value)` values,
+# which map to `Integer`, `Simple String`, `Bulk String`, `Nil` and `Array` Redis values
 
-# MiniRedis responses wrap `Int64 | String | Bytes | Nil | Array(Value)` values, which are
-# properly mapped to `integer`, `simple string`, `bulk string`, `nil` and `array` Redis values
-pp redis.send("SET foo bar").raw.as(String) # => "OK"
-bytes = redis.send("GET foo").raw.as(Bytes)
+# SET command returns `Simple String`, which is `String` in Crystal
+pp redis.send("SET", "foo", bar").raw.as(String) # => "OK"
+
+# GET command returns `Bulk String`, which is `Bytes` in Crystal
+bytes = redis.send("GET", "foo").raw.as(Bytes)
 pp String.new(bytes) # => "bar"
 
-# It is possible to declare commands as enumerables (or pass as many arguments),
-# so they are going to be marshalled according to the Redis protocol.
-# It is particulary useful for commands with binary payloads and usually faster
-redis.send({"set", "foo", "bar"})
-redis.send("set", "foo", "bar".to_slice)
+# Bytes command payloads are also supported
+redis.send("set", "foo".to_slice, "bar".to_slice)
+```
 
-# Pipelining
-#
+### Pipelining
 
+```crystal
 response = redis.pipeline do |pipe|
-  pipe.send("SET foo bar")
+  # WARNING: Accessing the `.send` return value
+  # within the pipe block would crash the program!
+  pipe.send("SET", "foo", "bar")
 end
 
 pp typeof(response) # => [MiniRedis::Value(@raw="OK")]
+```
 
-# Transactions
-#
+### Transactions
 
+```crystal
 response = redis.transaction do |tx|
-  tx.send("SET foo bar")
+  pp tx.send("SET", "foo", "bar").raw.as(String) # => "QUEUED"
 end
 
 pp typeof(response) # => MiniRedis::Value(@raw=[MiniRedis::Value(@raw="OK")])
+```
 
-# Connection pool
-#
+### Connection pool
 
+```crystal
 pool = MiniRedis::Pool.new
 
 response = pool.get do |redis|
-  redis.send({"PING"})
+  # Redis is MiniRedis instance, can do anything
+  redis.send("PING")
 end
 
+# Return value equals to the block's
+pp response.raw.as(String) # => "PONG"
+
 conn = pool.get
-conn.send("PING")
-pool.release(conn)
+pp conn.send("PING").raw.as(String) # => "PONG"
+pool.release(conn) # Do not forget to put it back!
 ```
 
 ## Development

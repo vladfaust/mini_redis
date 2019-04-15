@@ -4,12 +4,12 @@ describe MiniRedis::Pool do
   pool = MiniRedis::Pool.new(URI.parse(ENV["REDIS_URL"]), logger: Logger.new(STDOUT))
 
   it do
-    channel = Channel(MiniRedis::Value).new(5)
+    channel = Channel(MiniRedis::Value).new(2)
 
-    5.times do
+    2.times do
       spawn do
         channel.send(pool.get do |redis|
-          redis.send("PING")
+          redis.send("PING", 1)
         end)
       end
     end
@@ -19,6 +19,6 @@ describe MiniRedis::Pool do
     end
 
     channel.receive.should eq channel.receive
-    pool.size.should eq 5
+    pool.size.should eq 2
   end
 end

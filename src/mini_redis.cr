@@ -63,18 +63,12 @@ class MiniRedis
   # Whether is current connection in pipeline mode. See `#pipeline`.
   getter? pipeline : Bool = false
 
-  # Send a `String` inline *command*.
-  # It's a bit slower than the `Enumerable` (i.e. bytes) version,
-  # but allows to pass commands in one line.
-  #
-  # See [Redis Protocol: Inline Commands](https://redis.io/topics/protocol#inline-commands) for more information.
-  def send(command : String) : Value
-    @logger.try &.log(@logger_severity, command)
-    @socket << command << "\r\n"
-    send_impl
-  end
-
   # Send the *commands* marshalled according to the [Redis Protocol Specification](https://redis.io/topics/protocol).
+  #
+  # ```
+  # redis.send("PING")       # MiniRedis::Value(@raw="PONG")
+  # redis.send("GET", "foo") # MiniRedis::Value(@raw=Bytes)
+  # ```
   def send(commands : Enumerable) : Value
     @logger.try &.log(@logger_severity, commands.join(' ') { |c| c.is_a?(Bytes) ? "<binary>" : c })
 
@@ -142,7 +136,7 @@ class MiniRedis
   #
   # ```
   # response = redis.transaction do |tx|
-  #   pp tx.send("SET foo bar") # => MiniRedis::Value(@raw="QUEUED")
+  #   pp tx.send("SET", "foo", "bar") # => MiniRedis::Value(@raw="QUEUED")
   # end
   #
   # pp response # => MiniRedis::Value(@raw=[MiniRedis::Value(@raw=Bytes)])

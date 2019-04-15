@@ -66,7 +66,12 @@ class MiniRedis
 
   # Send the *commands* marshalled according to the [Redis Protocol Specification](https://redis.io/topics/protocol).
   def send(commands : Enumerable) : Value
-    marshal(commands, @socket)
+    @socket << "*" << commands.size << "\r\n"
+
+    commands.each do |command|
+      marshal(command, @socket)
+    end
+
     send_impl
   end
 
@@ -211,14 +216,6 @@ class MiniRedis
 
   protected def read_line : String
     @socket.gets || raise ConnectionError.new("The Redis server has closed the connection")
-  end
-
-  protected def marshal(arg : Enumerable, io) : Nil
-    io << "*" << arg.size << "\r\n"
-
-    arg.each do |element|
-      marshal(element, io)
-    end
   end
 
   protected def marshal(arg : Int, io) : Nil

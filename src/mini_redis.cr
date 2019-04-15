@@ -1,5 +1,6 @@
 require "socket"
 require "logger"
+require "colorize"
 
 require "./mini_redis/*"
 
@@ -70,7 +71,15 @@ class MiniRedis
   # redis.send("GET", "foo") # MiniRedis::Value(@raw=Bytes)
   # ```
   def send(commands : Enumerable) : Value
-    @logger.try &.log(@logger_severity, commands.join(' ') { |c| c.is_a?(Bytes) ? "<binary>" : c })
+    @logger.try &.log(@logger_severity) do
+      message = "[redis] "
+
+      message += commands.join(' ') do |cmd|
+        cmd.is_a?(Bytes) ? "<binary>" : cmd
+      end
+
+      message.colorize(:red).to_s
+    end
 
     @socket << "*" << commands.size << "\r\n"
 

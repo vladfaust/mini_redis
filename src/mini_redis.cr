@@ -95,13 +95,15 @@ class MiniRedis
   #
   # ```
   # response = redis.pipeline do |pipe|
+  #   # WARNING: Do not try to access its return value while
+  #   # within the pipeline block. See the explaination below
   #   pipe.send("PING")
   # end
   #
   # pp response # => Array([MiniRedis::Value(@raw="PONG")])
   # ```
   #
-  # NOTE: `#send` returns an `uninitalized Value` when in pipeline mode.
+  # WARNING: `#send` returns an `uninitalized Value` when in pipeline mode.
   # Trying to access it would crash the program. Use `#pipeline?` if you want to be sure.
   #
   # ```

@@ -222,7 +222,7 @@ class MiniRedis
   end
 
   protected def marshal(arg : Int, io) : Nil
-    io << ":" << arg << "\r\n"
+    marshal(arg.to_s, io)
   end
 
   protected def marshal(arg : String | Char, io) : Nil

@@ -76,7 +76,7 @@ redis = MiniRedis.new
 # which map to `Integer`, `Simple String`, `Bulk String`, `Nil` and `Array` Redis values
 
 # SET command returns `Simple String`, which is `String` in Crystal
-pp redis.send("SET", "foo", bar").raw.as(String) # => "OK"
+pp redis.send("SET", "foo", "bar").raw.as(String) # => "OK"
 
 # GET command returns `Bulk String`, which is `Bytes` in Crystal
 bytes = redis.send("GET", "foo").raw.as(Bytes)

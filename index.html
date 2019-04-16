@@ -154,14 +154,14 @@ redis <span class="o">=</span> <span class="t">MiniRedis</span>.<span class="k">
 <span class="c"># which map to `Integer`, `Simple String`, `Bulk String`, `Nil` and `Array` Redis values</span>
 
 <span class="c"># SET command returns `Simple String`, which is `String` in Crystal</span>
-pp redis.send(<span class="s">&quot;SET&quot;</span>, <span class="s">&quot;foo&quot;</span>, bar<span class="s">&quot;).raw.as(String) # =&gt; &quot;</span><span class="t">OK</span><span class="s">&quot;
+pp redis.send(<span class="s">&quot;SET&quot;</span>, <span class="s">&quot;foo&quot;</span>, <span class="s">&quot;bar&quot;</span>).raw.<span class="k">as</span>(<span class="t">String</span>) <span class="c"># =&gt; &quot;OK&quot;</span>
 
-# GET command returns `Bulk String`, which is `Bytes` in Crystal
-bytes = redis.send(&quot;</span><span class="t">GET</span><span class="s">&quot;, &quot;</span>foo<span class="s">&quot;).raw.as(Bytes)
-pp String.new(bytes) # =&gt; &quot;</span>bar<span class="s">&quot;
+<span class="c"># GET command returns `Bulk String`, which is `Bytes` in Crystal</span>
+bytes <span class="o">=</span> redis.send(<span class="s">&quot;GET&quot;</span>, <span class="s">&quot;foo&quot;</span>).raw.<span class="k">as</span>(<span class="t">Bytes</span>)
+pp <span class="t">String</span>.<span class="k">new</span>(bytes) <span class="c"># =&gt; &quot;bar&quot;</span>
 
-# Bytes command payloads are also supported
-redis.send(&quot;</span>set<span class="s">&quot;, &quot;</span>foo<span class="s">&quot;.to_slice, &quot;</span>bar<span class="s">&quot;.to_slice)</code></pre>
+<span class="c"># Bytes command payloads are also supported</span>
+redis.send(<span class="s">&quot;set&quot;</span>, <span class="s">&quot;foo&quot;</span>.to_slice, <span class="s">&quot;bar&quot;</span>.to_slice)</code></pre>
 
 <h3>Pipelining</h3>
 

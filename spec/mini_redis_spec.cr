@@ -8,6 +8,12 @@ describe MiniRedis do
       redis.send("PING").raw.as(String).should eq "PONG"
       redis.send("SET", "foo", "bar".to_slice).raw.as(String).should eq "OK"
     end
+
+    describe "with compound args" do
+      slice = Bytes[1, 2, 3]
+      redis.send("SET", {"foo", slice}, "bar").raw.as(String).should eq "OK"
+      String.new(redis.send("GET", {"foo", slice}).raw.as(Bytes)).should eq "bar"
+    end
   end
 
   describe "#pipeline" do

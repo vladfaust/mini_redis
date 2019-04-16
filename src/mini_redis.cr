@@ -249,6 +249,20 @@ class MiniRedis
     io << "\r\n"
   end
 
+  protected def marshal(args : Enumerable(String | Char | Bytes), io) : Nil
+    io << "$" << args.sum(&.bytesize) << "\r\n"
+
+    args.each do |arg|
+      if arg.is_a?(Bytes)
+        io.write(arg)
+      else
+        io << arg
+      end
+    end
+
+    io << "\r\n"
+  end
+
   protected def marshal(arg : Nil, io) : Nil
     io << "$-1\r\n"
   end

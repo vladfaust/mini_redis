@@ -154,9 +154,9 @@ class MiniRedis
   def transaction(&block : self ->) : Value
     send("MULTI")
 
-    @transaction = true.try do
-      yield(self); false
-    end
+    @transaction = true
+    yield(self)
+    @transaction = false
 
     send("EXEC")
   end

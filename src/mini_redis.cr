@@ -71,15 +71,7 @@ class MiniRedis
   # redis.send("GET", "foo") # MiniRedis::Value(@raw=Bytes)
   # ```
   def send(commands : Enumerable) : Value
-    @logger.try &.log(@logger_severity) do
-      message = "[redis] "
-
-      message += commands.join(' ') do |cmd|
-        cmd.is_a?(Bytes) ? "<binary>" : cmd
-      end
-
-      message.colorize(:red).to_s
-    end
+    log(commands)
 
     @socket << "*" << commands.size << "\r\n"
 
@@ -265,5 +257,38 @@ class MiniRedis
 
   protected def marshal(arg : Nil, io) : Nil
     io << "$-1\r\n"
+  end
+
+  protected def log(commands : Enumerable)
+    @logger.try &.log(@logger_severity) do
+      String.build do |builder|
+        builder << "[redis] "
+        first = true
+        commands.each do |cmd|
+          builder << ' ' unless first; first = false
+          decorate_command(cmd, builder)
+        end
+      end.colorize(:red).to_s
+    end
+  end
+
+  protected def decorate_command(cmd, builder)
+    case cmd
+    when Bytes
+      cmd.each do |b|
+        builder << '\\' << 'x'
+        builder.write_byte(to_hex(b >> 4))
+        builder.write_byte(to_hex(b & 0x0f))
+      end
+    when String, Char, Int then builder << cmd
+    when Enumerable        then cmd.each { |c| decorate_command(c, builder) }
+    else
+      raise "BUG: Unhandled cmd class #{cmd.class}"
+    end
+  end
+
+  @[AlwaysInline]
+  protected def to_hex(c)
+    ((c < 10 ? 48_u8 : 87_u8) + c)
   end
 end

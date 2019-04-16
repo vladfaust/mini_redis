@@ -46,6 +46,7 @@ class MiniRedis
   )
   end
 
+  # :nodoc:
   def finalize
     close
   end

@@ -51,11 +51,6 @@
       
     </li>
   
-  <li class=" " data-id="github.com/vladfaust/mini_redis/MiniRedis/Pipeline" data-name="miniredis::pipeline">
-      <a href="../MiniRedis/Pipeline.html">Pipeline</a>
-      
-    </li>
-  
   <li class="parent " data-id="github.com/vladfaust/mini_redis/MiniRedis/Pool" data-name="miniredis::pool">
       <a href="../MiniRedis/Pool.html">Pool</a>
       
@@ -68,11 +63,6 @@
   
 </ul>
 
-      
-    </li>
-  
-  <li class=" " data-id="github.com/vladfaust/mini_redis/MiniRedis/Transaction" data-name="miniredis::transaction">
-      <a href="../MiniRedis/Transaction.html">Transaction</a>
       
     </li>
   
@@ -116,8 +106,19 @@
 <span class="c"># Bulk String   | `$`        | `Bytes`      |</span>
 <span class="c"># Array         | `*`        | `Array`      |</span></code></pre>
 
-<pre><code>response <span class="o">=</span> <span class="t">String</span>.<span class="k">new</span>(redis.command(<span class="s">&quot;GET foo&quot;</span>).raw.<span class="k">as</span>(<span class="t">Bytes</span>))
+<pre><code>response <span class="o">=</span> redis.transaction <span class="k">do</span> <span class="o">|</span>tx<span class="o">|</span>
+  pp tx.send(<span class="s">&quot;SET foo bar&quot;</span>) <span class="c"># =&gt; MiniRedis::Value(@raw=&quot;QUEUED&quot;)</span>
+<span class="k">end</span>
+
+response <span class="o">=</span> <span class="t">String</span>.<span class="k">new</span>(response.raw.<span class="k">as</span>(<span class="t">Array</span>).first.raw.<span class="k">as</span>(<span class="t">Bytes</span>))
+pp response <span class="c"># =&gt; &quot;bar&quot;</span>
+
+response <span class="o">=</span> redis.send(<span class="s">&quot;GET foo&quot;</span>)
+response <span class="o">=</span> <span class="t">String</span>.<span class="k">new</span>(response.raw.<span class="k">as</span>(<span class="t">Bytes</span>))
 pp response <span class="c"># =&gt; &quot;bar&quot;</span></code></pre>
+
+<p>Reminder — do not try to directly print a <code><a href="../MiniRedis.html#send%28commands%3AEnumerable%29%3AValue-instance-method">MiniRedis#send</a></code> response when in
+pipeline mode! See <code><a href="../MiniRedis.html#pipeline%28%26block%3Aself-%3E%29%3AArray%28Value%29-instance-method">MiniRedis#pipeline</a></code> docs.</p>
 
 
 
@@ -135,7 +136,7 @@ pp response <span class="c"># =&gt; &quot;bar&quot;</span></code></pre>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/vladfaust/mini_redis/blob/1ab0ce27765034e1416ed36ff0aa7be762659f21/src/mini_redis/value.cr#L17" target="_blank">
+      <a href="https://github.com/vladfaust/mini_redis/blob/a6f437f9b6d43a27b5ef86a0e021f7e530fdf22a/src/mini_redis/value.cr#L28" target="_blank">
         mini_redis/value.cr
       </a>
     
@@ -222,7 +223,7 @@ pp response <span class="c"># =&gt; &quot;bar&quot;</span></code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/vladfaust/mini_redis/blob/1ab0ce27765034e1416ed36ff0aa7be762659f21/src/mini_redis/value.cr#L20" target="_blank">View source</a>]
+          [<a href="https://github.com/vladfaust/mini_redis/blob/a6f437f9b6d43a27b5ef86a0e021f7e530fdf22a/src/mini_redis/value.cr#L31" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -245,7 +246,7 @@ pp response <span class="c"># =&gt; &quot;bar&quot;</span></code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/vladfaust/mini_redis/blob/1ab0ce27765034e1416ed36ff0aa7be762659f21/src/mini_redis/value.cr#L18" target="_blank">View source</a>]
+          [<a href="https://github.com/vladfaust/mini_redis/blob/a6f437f9b6d43a27b5ef86a0e021f7e530fdf22a/src/mini_redis/value.cr#L29" target="_blank">View source</a>]
         
       </div>
     </div>

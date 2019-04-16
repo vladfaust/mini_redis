@@ -51,11 +51,6 @@
       
     </li>
   
-  <li class=" " data-id="github.com/vladfaust/mini_redis/MiniRedis/Pipeline" data-name="miniredis::pipeline">
-      <a href="MiniRedis/Pipeline.html">Pipeline</a>
-      
-    </li>
-  
   <li class="parent " data-id="github.com/vladfaust/mini_redis/MiniRedis/Pool" data-name="miniredis::pool">
       <a href="MiniRedis/Pool.html">Pool</a>
       
@@ -68,11 +63,6 @@
   
 </ul>
 
-      
-    </li>
-  
-  <li class=" " data-id="github.com/vladfaust/mini_redis/MiniRedis/Transaction" data-name="miniredis::transaction">
-      <a href="MiniRedis/Transaction.html">Transaction</a>
       
     </li>
   
@@ -106,21 +96,40 @@
 
 <p>A light-weight Redis client for <a href="https://crystal-lang.org/" target="_blank">Crystal</a>.</p>
 
-<h2>Supporters</h2>
-
-<p>Thanks to all my patrons, I can build and support beautiful Open Source Software! 🙏</p>
-
-<p><a href="https://github.com/ljuti" target="_blank">Lauri Jutila</a>, <a href="https://seendex.ru" target="_blank">Alexander Maslov</a>, Dainel Vera</p>
-
-<p><em>You can become a patron too in exchange of prioritized support and other perks</em></p>
-
 <p><a href="https://www.patreon.com/vladfaust" target="_blank"><img src="https://vladfaust.com/img/patreon-small.svg" alt="Become Patron"/></a></p>
 
 <h2>About</h2>
 
 <p>MiniRedis is a light-weight low-level alternative to existing Redis client implementations.</p>
 
-<p>In comparison with <a href="https://github.com/stefanwille/crystal-redis" target="_blank">crystal-redis</a>, MiniRedis is slightly faster, has first-class support for raw bytes and doesn't need to be updated with every Redis release. On the other hand, MiniRedis doesn't have commands API (i.e. instead of <code>redis.ping</code> you should write <code>redis.command("PING")</code>). However, such a low-level interface terminates the dependency on the third-party client maintainer (i.e. me), which makes it a perfect fit to use within a shard.</p>
+<p>In comparison with <a href="https://github.com/stefanwille/crystal-redis" target="_blank">crystal-redis</a>, MiniRedis has lesser memory consumption, built-in logging and first-class support for raw bytes. It also doesn't need to be updated with every Redis release.</p>
+
+<p>On the other hand, MiniRedis doesn't have commands API (i.e. instead of <code>redis.ping</code> you should write <code>redis.send("PING")</code>). However, such a low-level interface terminates the dependency on the third-party client maintainer (i.e. me), which makes it a perfect fit to use within a shard.</p>
+
+<p>You can always find the actual Redis commands API at &lt;https://redis.io/commands>.</p>
+
+<h3>Benchmarks</h3>
+
+<p>Benchmarks code can be found at &lt;https://github.com/vladfaust/mini_redis-benchmarks>.
+These are recent results of comparison MiniRedis with <a href="https://github.com/stefanwille/crystal-redis" target="_blank">crystal-redis</a>.</p>
+
+<h4><code>send</code> benchmarks</h4>
+
+<pre><code class="language-sh">> env REDIS_URL=redis://localhost:6379/1 crystal src/send.cr --release
+mini_redis     13.4k ( 74.62µs) (± 2.50%)   32 B/op        fastest
+crystal-redis  13.36k ( 74.83µs) (± 2.97%)  144 B/op   1.00× slower</code></pre>
+
+<p><strong>Conclusion:</strong> <code>mini_redis</code> is more memory-efficient.</p>
+
+<h4>Pipeline mode benchmarks</h4>
+
+<p>1 million pipelined <code>send</code>s, average from 30 times repeats:</p>
+
+<pre><code class="language-sh">> env REDIS_URL=redis://localhost:6379/1 crystal src/pipeline.cr --release
+mini_redis    914.569ms 1.093M ops/s
+crystal-redis 908.182ms 1.101M ops/s</code></pre>
+
+<p><strong>Conclusion:</strong> <code>mini_redis</code> has almost the same speed as <code>crystal-redis</code>.</p>
 
 <h2>Installation</h2>
 
@@ -129,9 +138,11 @@
 <pre><code class="language-yaml">dependencies:
   mini_redis:
     github: vladfaust/mini_redis
-    version: ~> 0.1.0</code></pre>
+    version: ~> 0.2.0</code></pre>
 
 <ol><li>Run <code>shards install</code></li></ol>
+
+<p>This shard follows <a href="http://semver.org/" target="_blank">Semantic Versioning v2.0.0</a>, so check <a href="https://github.com/vladfaust/timer.cr/releases" target="_blank">releases</a> and change the <code>version</code> accordingly. Note that until Crystal is officially released, this shard would be in beta state (<code>0.*.*</code>), with every <strong>minor</strong> release considered breaking. For example, <code>0.1.0</code> → <code>0.2.0</code> is breaking and <code>0.1.0</code> → <code>0.1.1</code> is not.</p>
 
 <h2>Usage</h2>
 
@@ -139,38 +150,52 @@
 
 redis <span class="o">=</span> <span class="t">MiniRedis</span>.<span class="k">new</span>
 
-<span class="c"># Inline (i.e. one-line) commands are usually faster, because they don&#39;t need marshalling</span>
-pp redis.command(<span class="s">&quot;PING&quot;</span>).raw.<span class="k">as</span>(<span class="t">String</span>) <span class="c"># =&gt; &quot;PONG&quot;</span>
+<span class="c"># MiniRedis responses wrap `Int64 | String | Bytes | Nil | Array(Value)` values,</span>
+<span class="c"># which map to `Integer`, `Simple String`, `Bulk String`, `Nil` and `Array` Redis values</span>
 
-<span class="c"># MiniRedis responses wrap `Int64 | String | Bytes | Nil | Array(Value)` values, which are</span>
-<span class="c"># properly mapped to `integer`, `simple string`, `bulk string`, `nil` and `array` Redis values</span>
-pp redis.command(<span class="s">&quot;SET foo bar&quot;</span>).raw.<span class="k">as</span>(<span class="t">String</span>) <span class="c"># =&gt; &quot;OK&quot;</span>
-bytes <span class="o">=</span> redis.command(<span class="s">&quot;GET foo&quot;</span>).raw.<span class="k">as</span>(<span class="t">Bytes</span>)
-pp <span class="t">String</span>.<span class="k">new</span>(bytes) <span class="c"># =&gt; &quot;bar&quot;</span>
+<span class="c"># SET command returns `Simple String`, which is `String` in Crystal</span>
+pp redis.send(<span class="s">&quot;SET&quot;</span>, <span class="s">&quot;foo&quot;</span>, bar<span class="s">&quot;).raw.as(String) # =&gt; &quot;</span><span class="t">OK</span><span class="s">&quot;
 
-<span class="c"># It is possible to declare commands as enumerables (or pass as many arguments),</span>
-<span class="c"># so they are going to be marshalled according to the Redis protocol.</span>
-<span class="c"># It is particulary useful for commands with binary payloads</span>
-redis.command({<span class="s">&quot;set&quot;</span>, <span class="s">&quot;foo&quot;</span>, <span class="s">&quot;bar&quot;</span>.to_slice})
-redis.command(<span class="s">&quot;set&quot;</span>, <span class="s">&quot;foo&quot;</span>, <span class="s">&quot;bar&quot;</span>.to_slice)
+# GET command returns `Bulk String`, which is `Bytes` in Crystal
+bytes = redis.send(&quot;</span><span class="t">GET</span><span class="s">&quot;, &quot;</span>foo<span class="s">&quot;).raw.as(Bytes)
+pp String.new(bytes) # =&gt; &quot;</span>bar<span class="s">&quot;
 
-<span class="c"># It is possible to split sending and receiving the response</span>
-redis.send(<span class="s">&quot;SET foo bar&quot;</span>)
-redis.receive
+# Bytes command payloads are also supported
+redis.send(&quot;</span>set<span class="s">&quot;, &quot;</span>foo<span class="s">&quot;.to_slice, &quot;</span>bar<span class="s">&quot;.to_slice)</code></pre>
 
-<span class="c"># Pipelining</span>
-response <span class="o">=</span> redis.pipeline <span class="k">do</span> <span class="o">|</span>pipe<span class="o">|</span>
-  pipe.send(<span class="s">&quot;SET foo bar&quot;</span>)
+<h3>Pipelining</h3>
+
+<pre><code class="language-crystal">response <span class="o">=</span> redis.pipeline <span class="k">do</span> <span class="o">|</span>pipe<span class="o">|</span>
+  <span class="c"># WARNING: Accessing the `.send` return value</span>
+  <span class="c"># within the pipe block would crash the program!</span>
+  pipe.send(<span class="s">&quot;SET&quot;</span>, <span class="s">&quot;foo&quot;</span>, <span class="s">&quot;bar&quot;</span>)
 <span class="k">end</span>
 
-pp <span class="k">typeof</span>(response) <span class="c"># =&gt; Array(MiniRedis::Value)</span>
+pp <span class="k">typeof</span>(response) <span class="c"># =&gt; [MiniRedis::Value(@raw=&quot;OK&quot;)]</span></code></pre>
 
-<span class="c"># Transactions</span>
-response <span class="o">=</span> redis.transaction <span class="k">do</span> <span class="o">|</span>tx<span class="o">|</span>
-  tx.send(<span class="s">&quot;SET foo bar&quot;</span>)
+<h3>Transactions</h3>
+
+<pre><code class="language-crystal">response <span class="o">=</span> redis.transaction <span class="k">do</span> <span class="o">|</span>tx<span class="o">|</span>
+  pp tx.send(<span class="s">&quot;SET&quot;</span>, <span class="s">&quot;foo&quot;</span>, <span class="s">&quot;bar&quot;</span>).raw.<span class="k">as</span>(<span class="t">String</span>) <span class="c"># =&gt; &quot;QUEUED&quot;</span>
 <span class="k">end</span>
 
-pp <span class="k">typeof</span>(response) <span class="c"># =&gt; MiniRedis::Value</span></code></pre>
+pp <span class="k">typeof</span>(response) <span class="c"># =&gt; MiniRedis::Value(@raw=[MiniRedis::Value(@raw=&quot;OK&quot;)])</span></code></pre>
+
+<h3>Connection pool</h3>
+
+<pre><code class="language-crystal">pool <span class="o">=</span> <span class="t">MiniRedis</span><span class="t">::</span><span class="t">Pool</span>.<span class="k">new</span>
+
+response <span class="o">=</span> pool.get <span class="k">do</span> <span class="o">|</span>redis<span class="o">|</span>
+  <span class="c"># Redis is MiniRedis instance, can do anything</span>
+  redis.send(<span class="s">&quot;PING&quot;</span>)
+<span class="k">end</span>
+
+<span class="c"># Return value equals to the block&#39;s</span>
+pp response.raw.<span class="k">as</span>(<span class="t">String</span>) <span class="c"># =&gt; &quot;PONG&quot;</span>
+
+conn <span class="o">=</span> pool.get
+pp conn.send(<span class="s">&quot;PING&quot;</span>).raw.<span class="k">as</span>(<span class="t">String</span>) <span class="c"># =&gt; &quot;PONG&quot;</span>
+pool.release(conn) <span class="c"># Do not forget to put it back!</span></code></pre>
 
 <h2>Development</h2>
 

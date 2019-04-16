@@ -51,11 +51,6 @@
       
     </li>
   
-  <li class=" " data-id="github.com/vladfaust/mini_redis/MiniRedis/Pipeline" data-name="miniredis::pipeline">
-      <a href="../MiniRedis/Pipeline.html">Pipeline</a>
-      
-    </li>
-  
   <li class="parent open current" data-id="github.com/vladfaust/mini_redis/MiniRedis/Pool" data-name="miniredis::pool">
       <a href="../MiniRedis/Pool.html">Pool</a>
       
@@ -68,11 +63,6 @@
   
 </ul>
 
-      
-    </li>
-  
-  <li class=" " data-id="github.com/vladfaust/mini_redis/MiniRedis/Transaction" data-name="miniredis::transaction">
-      <a href="../MiniRedis/Transaction.html">Transaction</a>
       
     </li>
   
@@ -107,7 +97,7 @@
 
   <h2>Overview</h2>
 
-  <p>A <code><a href="../MiniRedis.html">MiniRedis</a></code> connection pool. It has dynamic <code><a href="../MiniRedis/Pool.html#capacity%3AInt32-instance-method">#capacity</a></code> and <code><a href="../MiniRedis/Pool.html#block%3AProc%28MiniRedis%29-instance-method">#block</a></code> value.</p>
+  <p>A <code><a href="../MiniRedis.html">MiniRedis</a></code> connection pool. It has dynamic <code><a href="../MiniRedis/Pool.html#capacity%3AInt32-instance-method">#capacity</a></code> and <code><a href="../MiniRedis/Pool.html#block%3AProc%28MiniRedis%29-instance-method">#block</a></code> values.</p>
 
 
 
@@ -125,7 +115,7 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/vladfaust/mini_redis/blob/1ab0ce27765034e1416ed36ff0aa7be762659f21/src/mini_redis/pool.cr#L3" target="_blank">
+      <a href="https://github.com/vladfaust/mini_redis/blob/a6f437f9b6d43a27b5ef86a0e021f7e530fdf22a/src/mini_redis/pool.cr#L3" target="_blank">
         mini_redis/pool.cr
       </a>
     
@@ -140,9 +130,9 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#new%28capacity%3AInt32%3DInt32%3A%3AMAX%2Cinitial_size%3AInt32%3D0%2Curi%3AURI%3DURI.parse%28%26quot%3Bredis%3A%2F%2Flocalhost%3A6379%26quot%3B%29%2Cdns_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%2Cconnect_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%2Cread_timeout%3ATime%3A%3ASpan%3F%3Dnil%2Cwrite_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%29-class-method" class="signature"><strong>.new</strong>(capacity : Int32 = <span class="t">Int32</span><span class="t">::</span><span class="t">MAX</span>, initial_size : Int32 = <span class="n">0</span>, uri : URI = <span class="t">URI</span>.parse(<span class="s">&quot;redis://localhost:6379&quot;</span>), dns_timeout : Time::Span? = <span class="n">5</span>.seconds, connect_timeout : Time::Span? = <span class="n">5</span>.seconds, read_timeout : Time::Span? = <span class="n">nil</span>, write_timeout : Time::Span? = <span class="n">5</span>.seconds)</a>
+        <a href="#new%28uri%3AURI%3DURI.parse%28%26quot%3Bredis%3A%2F%2Flocalhost%3A6379%26quot%3B%29%2Ccapacity%3AInt32%3DInt32%3A%3AMAX%2Cinitial_size%3AInt32%3D0%2Clogger%3ALogger%3F%3Dnil%2Clogger_severity%3ALogger%3A%3ASeverity%3DLogger%3A%3ASeverity%3A%3AINFO%2Cdns_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%2Cconnect_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%2Cread_timeout%3ATime%3A%3ASpan%3F%3Dnil%2Cwrite_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%29-class-method" class="signature"><strong>.new</strong>(uri : URI = <span class="t">URI</span>.parse(<span class="s">&quot;redis://localhost:6379&quot;</span>), capacity : Int32 = <span class="t">Int32</span><span class="t">::</span><span class="t">MAX</span>, initial_size : Int32 = <span class="n">0</span>, logger : Logger? = <span class="n">nil</span>, logger_severity : Logger::Severity = <span class="t">Logger</span><span class="t">::</span><span class="t">Severity</span><span class="t">::</span><span class="t">INFO</span>, dns_timeout : Time::Span? = <span class="n">5</span>.seconds, connect_timeout : Time::Span? = <span class="n">5</span>.seconds, read_timeout : Time::Span? = <span class="n">nil</span>, write_timeout : Time::Span? = <span class="n">5</span>.seconds)</a>
         
-          <div class="summary"><p>Initialize a pool with <code><a href="../MiniRedis/Pool.html#block%3AProc%28MiniRedis%29-instance-method">#block</a></code> initializing a <code><a href="../MiniRedis.html">MiniRedis</a></code> client from the <em>uri</em>.</p></div>
+          <div class="summary"><p>Initialize a new pool with <code><a href="../MiniRedis/Pool.html#block%3AProc%28MiniRedis%29-instance-method">#block</a></code> initializing a <code><a href="../MiniRedis.html">MiniRedis</a></code> client from the <em>uri</em>.</p></div>
         
       </li>
     
@@ -163,14 +153,14 @@
       <li class="entry-summary">
         <a href="#block%3AProc%28MiniRedis%29-instance-method" class="signature"><strong>#block</strong> : Proc(MiniRedis)</a>
         
-          <div class="summary"><p>The pool's block to call to initialize a new <code><a href="../MiniRedis.html">MiniRedis</a></code>.</p></div>
+          <div class="summary"><p>The pool's block to call to initialize a new <code><a href="../MiniRedis.html">MiniRedis</a></code> instance.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#block%3D%28block%3AProc%28MiniRedis%29%29-instance-method" class="signature"><strong>#block=</strong>(block : Proc(MiniRedis))</a>
         
-          <div class="summary"><p>The pool's block to call to initialize a new <code><a href="../MiniRedis.html">MiniRedis</a></code>.</p></div>
+          <div class="summary"><p>The pool's block to call to initialize a new <code><a href="../MiniRedis.html">MiniRedis</a></code> instance.</p></div>
         
       </li>
     
@@ -263,20 +253,21 @@
 
   <h2>Constructor Detail</h2>
   
-    <div class="entry-detail" id="new(capacity:Int32=Int32::MAX,initial_size:Int32=0,uri:URI=URI.parse(&amp;quot;redis://localhost:6379&amp;quot;),dns_timeout:Time::Span?=5.seconds,connect_timeout:Time::Span?=5.seconds,read_timeout:Time::Span?=nil,write_timeout:Time::Span?=5.seconds)-class-method">
+    <div class="entry-detail" id="new(uri:URI=URI.parse(&amp;quot;redis://localhost:6379&amp;quot;),capacity:Int32=Int32::MAX,initial_size:Int32=0,logger:Logger?=nil,logger_severity:Logger::Severity=Logger::Severity::INFO,dns_timeout:Time::Span?=5.seconds,connect_timeout:Time::Span?=5.seconds,read_timeout:Time::Span?=nil,write_timeout:Time::Span?=5.seconds)-class-method">
       <div class="signature">
         
-        def self.<strong>new</strong>(capacity : Int32 = <span class="t">Int32</span><span class="t">::</span><span class="t">MAX</span>, initial_size : Int32 = <span class="n">0</span>, uri : URI = <span class="t">URI</span>.parse(<span class="s">&quot;redis://localhost:6379&quot;</span>), dns_timeout : Time::Span? = <span class="n">5</span>.seconds, connect_timeout : Time::Span? = <span class="n">5</span>.seconds, read_timeout : Time::Span? = <span class="n">nil</span>, write_timeout : Time::Span? = <span class="n">5</span>.seconds)
+        def self.<strong>new</strong>(uri : URI = <span class="t">URI</span>.parse(<span class="s">&quot;redis://localhost:6379&quot;</span>), capacity : Int32 = <span class="t">Int32</span><span class="t">::</span><span class="t">MAX</span>, initial_size : Int32 = <span class="n">0</span>, logger : Logger? = <span class="n">nil</span>, logger_severity : Logger::Severity = <span class="t">Logger</span><span class="t">::</span><span class="t">Severity</span><span class="t">::</span><span class="t">INFO</span>, dns_timeout : Time::Span? = <span class="n">5</span>.seconds, connect_timeout : Time::Span? = <span class="n">5</span>.seconds, read_timeout : Time::Span? = <span class="n">nil</span>, write_timeout : Time::Span? = <span class="n">5</span>.seconds)
 
-        <a class="method-permalink" href="#new%28capacity%3AInt32%3DInt32%3A%3AMAX%2Cinitial_size%3AInt32%3D0%2Curi%3AURI%3DURI.parse%28%26quot%3Bredis%3A%2F%2Flocalhost%3A6379%26quot%3B%29%2Cdns_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%2Cconnect_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%2Cread_timeout%3ATime%3A%3ASpan%3F%3Dnil%2Cwrite_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%29-class-method">#</a>
+        <a class="method-permalink" href="#new%28uri%3AURI%3DURI.parse%28%26quot%3Bredis%3A%2F%2Flocalhost%3A6379%26quot%3B%29%2Ccapacity%3AInt32%3DInt32%3A%3AMAX%2Cinitial_size%3AInt32%3D0%2Clogger%3ALogger%3F%3Dnil%2Clogger_severity%3ALogger%3A%3ASeverity%3DLogger%3A%3ASeverity%3A%3AINFO%2Cdns_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%2Cconnect_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%2Cread_timeout%3ATime%3A%3ASpan%3F%3Dnil%2Cwrite_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%29-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Initialize a pool with <code><a href="../MiniRedis/Pool.html#block%3AProc%28MiniRedis%29-instance-method">#block</a></code> initializing a <code><a href="../MiniRedis.html">MiniRedis</a></code> client from the <em>uri</em>.</p></div>
+        <div class="doc"><p>Initialize a new pool with <code><a href="../MiniRedis/Pool.html#block%3AProc%28MiniRedis%29-instance-method">#block</a></code> initializing a
+<code><a href="../MiniRedis.html">MiniRedis</a></code> client from the <em>uri</em>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/vladfaust/mini_redis/blob/1ab0ce27765034e1416ed36ff0aa7be762659f21/src/mini_redis/pool.cr#L5" target="_blank">View source</a>]
+          [<a href="https://github.com/vladfaust/mini_redis/blob/a6f437f9b6d43a27b5ef86a0e021f7e530fdf22a/src/mini_redis/pool.cr#L6" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -292,7 +283,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/vladfaust/mini_redis/blob/1ab0ce27765034e1416ed36ff0aa7be762659f21/src/mini_redis/pool.cr#L50" target="_blank">View source</a>]
+          [<a href="https://github.com/vladfaust/mini_redis/blob/a6f437f9b6d43a27b5ef86a0e021f7e530fdf22a/src/mini_redis/pool.cr#L55" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -312,13 +303,13 @@
         <a class="method-permalink" href="#block%3AProc%28MiniRedis%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>The pool's block to call to initialize a new <code><a href="../MiniRedis.html">MiniRedis</a></code>.
-Could be changed after the pool is initialized.</p></div>
+        <div class="doc"><p>The pool's block to call to initialize a new <code><a href="../MiniRedis.html">MiniRedis</a></code> instance.
+Can be changed after the pool is initialized.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/vladfaust/mini_redis/blob/1ab0ce27765034e1416ed36ff0aa7be762659f21/src/mini_redis/pool.cr#L32" target="_blank">View source</a>]
+          [<a href="https://github.com/vladfaust/mini_redis/blob/a6f437f9b6d43a27b5ef86a0e021f7e530fdf22a/src/mini_redis/pool.cr#L37" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -331,13 +322,13 @@ Could be changed after the pool is initialized.</p></div>
         <a class="method-permalink" href="#block%3D%28block%3AProc%28MiniRedis%29%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>The pool's block to call to initialize a new <code><a href="../MiniRedis.html">MiniRedis</a></code>.
-Could be changed after the pool is initialized.</p></div>
+        <div class="doc"><p>The pool's block to call to initialize a new <code><a href="../MiniRedis.html">MiniRedis</a></code> instance.
+Can be changed after the pool is initialized.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/vladfaust/mini_redis/blob/1ab0ce27765034e1416ed36ff0aa7be762659f21/src/mini_redis/pool.cr#L36" target="_blank">View source</a>]
+          [<a href="https://github.com/vladfaust/mini_redis/blob/a6f437f9b6d43a27b5ef86a0e021f7e530fdf22a/src/mini_redis/pool.cr#L41" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -350,12 +341,12 @@ Could be changed after the pool is initialized.</p></div>
         <a class="method-permalink" href="#capacity%3AInt32-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>The pool's capacity. Could be changed after the pool is initialized.</p></div>
+        <div class="doc"><p>The pool's capacity. Can be changed after the pool is initialized.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/vladfaust/mini_redis/blob/1ab0ce27765034e1416ed36ff0aa7be762659f21/src/mini_redis/pool.cr#L28" target="_blank">View source</a>]
+          [<a href="https://github.com/vladfaust/mini_redis/blob/a6f437f9b6d43a27b5ef86a0e021f7e530fdf22a/src/mini_redis/pool.cr#L33" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -368,12 +359,12 @@ Could be changed after the pool is initialized.</p></div>
         <a class="method-permalink" href="#capacity%3D%28capacity%3AInt32%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>The pool's capacity. Could be changed after the pool is initialized.</p></div>
+        <div class="doc"><p>The pool's capacity. Can be changed after the pool is initialized.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/vladfaust/mini_redis/blob/1ab0ce27765034e1416ed36ff0aa7be762659f21/src/mini_redis/pool.cr#L32" target="_blank">View source</a>]
+          [<a href="https://github.com/vladfaust/mini_redis/blob/a6f437f9b6d43a27b5ef86a0e021f7e530fdf22a/src/mini_redis/pool.cr#L37" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -391,7 +382,7 @@ Could be changed after the pool is initialized.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/vladfaust/mini_redis/blob/1ab0ce27765034e1416ed36ff0aa7be762659f21/src/mini_redis/pool.cr#L33" target="_blank">View source</a>]
+          [<a href="https://github.com/vladfaust/mini_redis/blob/a6f437f9b6d43a27b5ef86a0e021f7e530fdf22a/src/mini_redis/pool.cr#L38" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -411,7 +402,7 @@ Calls <code><a href="../MiniRedis/Pool.html#release%28redis%3AMiniRedis%29%3ANil
       <br/>
       <div>
         
-          [<a href="https://github.com/vladfaust/mini_redis/blob/1ab0ce27765034e1416ed36ff0aa7be762659f21/src/mini_redis/pool.cr#L59" target="_blank">View source</a>]
+          [<a href="https://github.com/vladfaust/mini_redis/blob/a6f437f9b6d43a27b5ef86a0e021f7e530fdf22a/src/mini_redis/pool.cr#L64" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -432,7 +423,7 @@ Blocks until one is available, raises <code><a href="../MiniRedis/Pool/TimeoutEr
       <br/>
       <div>
         
-          [<a href="https://github.com/vladfaust/mini_redis/blob/1ab0ce27765034e1416ed36ff0aa7be762659f21/src/mini_redis/pool.cr#L70" target="_blank">View source</a>]
+          [<a href="https://github.com/vladfaust/mini_redis/blob/a6f437f9b6d43a27b5ef86a0e021f7e530fdf22a/src/mini_redis/pool.cr#L76" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -450,7 +441,7 @@ Blocks until one is available, raises <code><a href="../MiniRedis/Pool/TimeoutEr
       <br/>
       <div>
         
-          [<a href="https://github.com/vladfaust/mini_redis/blob/1ab0ce27765034e1416ed36ff0aa7be762659f21/src/mini_redis/pool.cr#L105" target="_blank">View source</a>]
+          [<a href="https://github.com/vladfaust/mini_redis/blob/a6f437f9b6d43a27b5ef86a0e021f7e530fdf22a/src/mini_redis/pool.cr#L111" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -468,7 +459,7 @@ Blocks until one is available, raises <code><a href="../MiniRedis/Pool/TimeoutEr
       <br/>
       <div>
         
-          [<a href="https://github.com/vladfaust/mini_redis/blob/1ab0ce27765034e1416ed36ff0aa7be762659f21/src/mini_redis/pool.cr#L43" target="_blank">View source</a>]
+          [<a href="https://github.com/vladfaust/mini_redis/blob/a6f437f9b6d43a27b5ef86a0e021f7e530fdf22a/src/mini_redis/pool.cr#L48" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -486,7 +477,7 @@ Blocks until one is available, raises <code><a href="../MiniRedis/Pool/TimeoutEr
       <br/>
       <div>
         
-          [<a href="https://github.com/vladfaust/mini_redis/blob/1ab0ce27765034e1416ed36ff0aa7be762659f21/src/mini_redis/pool.cr#L38" target="_blank">View source</a>]
+          [<a href="https://github.com/vladfaust/mini_redis/blob/a6f437f9b6d43a27b5ef86a0e021f7e530fdf22a/src/mini_redis/pool.cr#L43" target="_blank">View source</a>]
         
       </div>
     </div>

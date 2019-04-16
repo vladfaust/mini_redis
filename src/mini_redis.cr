@@ -65,6 +65,12 @@ class MiniRedis
   # Whether is current connection in pipeline mode. See `#pipeline`.
   getter? pipeline : Bool = false
 
+  # The logger which logs commands.
+  property logger : Logger?
+
+  # The `#logger` severity.
+  property logger_severity : Logger::Severity
+
   # Send the *commands* marshalled according to the [Redis Protocol Specification](https://redis.io/topics/protocol).
   #
   # ```

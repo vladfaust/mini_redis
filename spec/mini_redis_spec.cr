@@ -10,9 +10,25 @@ describe MiniRedis do
     end
 
     describe "with compound args" do
-      slice = Bytes[1, 2, 3]
-      redis.send("SET", {"foo", slice}, "bar").raw.as(String).should eq "OK"
-      String.new(redis.send("GET", {"foo", slice}).raw.as(Bytes)).should eq "bar"
+      it do
+        slice = Bytes[1, 2, 3]
+        redis.send("SET", {"foo", slice, 42}, "bar").raw.as(String).should eq "OK"
+        String.new(redis.send("GET", "foo\x01\x02\x0342").raw.as(Bytes)).should eq "bar"
+      end
+
+      describe "with negative numbers" do
+        it do
+          redis.send("SET", {"foo", -40}, "bar").raw.as(String).should eq "OK"
+          String.new(redis.send("GET", "foo-40").raw.as(Bytes)).should eq "bar"
+        end
+      end
+
+      describe "with zeros" do
+        it do
+          redis.send("SET", {"foo", 0}, "bar").raw.as(String).should eq "OK"
+          String.new(redis.send("GET", "foo0").raw.as(Bytes)).should eq "bar"
+        end
+      end
     end
   end
 

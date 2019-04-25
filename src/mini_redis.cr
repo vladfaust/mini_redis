@@ -248,8 +248,14 @@ class MiniRedis
     io << "\r\n"
   end
 
-  protected def marshal(args : Enumerable(String | Char | Bytes), io) : Nil
-    io << "$" << args.sum(&.bytesize) << "\r\n"
+  protected def marshal(args : Enumerable(String | Char | Bytes | Int8 | Int16 | Int32 | Int64 | UInt8 | UInt16 | UInt32 | UInt64), io) : Nil
+    io << "$" << args.sum do |a|
+      if a.is_a?(Int)
+        (a.abs < 10 ? 1 : Math.log10(a.abs + (a % 10 == 0 ? 1 : 0)).ceil.to_i32) + (a < 0 ? 1 : 0)
+      else
+        a.bytesize
+      end
+    end << "\r\n"
 
     args.each do |arg|
       if arg.is_a?(Bytes)

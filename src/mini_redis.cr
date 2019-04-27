@@ -238,6 +238,11 @@ class MiniRedis
     marshal(arg.to_s, io)
   end
 
+  protected def marshal(arg : Float, io) : Nil
+    raise ArgumentError.new("Bulk value must be finite") unless a.finite?
+    marshal(arg.to_s, io)
+  end
+
   protected def marshal(arg : String | Char, io) : Nil
     io << "$" << arg.bytesize << "\r\n" << arg << "\r\n"
   end
@@ -248,10 +253,13 @@ class MiniRedis
     io << "\r\n"
   end
 
-  protected def marshal(args : Enumerable(String | Char | Bytes | Int8 | Int16 | Int32 | Int64 | UInt8 | UInt16 | UInt32 | UInt64), io) : Nil
+  protected def marshal(args : Enumerable(String | Char | Bytes | Int8 | Int16 | Int32 | Int64 | UInt8 | UInt16 | UInt32 | UInt64 | Float32 | Float64), io) : Nil
     io << "$" << args.sum do |a|
       if a.is_a?(Int)
         (a.abs < 10 ? 1 : Math.log10(a.abs + (a % 10 == 0 ? 1 : 0)).ceil.to_i32) + (a < 0 ? 1 : 0)
+      elsif a.is_a?(Float)
+        raise ArgumentError.new("Bulk value must be finite") unless a.finite?
+        a.to_s.bytesize
       else
         a.bytesize
       end
@@ -293,8 +301,8 @@ class MiniRedis
         builder.write_byte(to_hex(b >> 4))
         builder.write_byte(to_hex(b & 0x0f))
       end
-    when String, Char, Int then builder << cmd
-    when Enumerable        then cmd.each { |c| decorate_command(c, builder) }
+    when String, Char, Int, Float then builder << cmd
+    when Enumerable               then cmd.each { |c| decorate_command(c, builder) }
     else
       raise "BUG: Unhandled cmd class #{cmd.class}"
     end

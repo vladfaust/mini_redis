@@ -29,6 +29,13 @@ describe MiniRedis do
           String.new(redis.send("GET", "foo0").raw.as(Bytes)).should eq "bar"
         end
       end
+
+      describe "with floats" do
+        it do
+          redis.send("SET", {"foo", 42.33810}, "bar").raw.as(String).should eq "OK"
+          String.new(redis.send("GET", "foo42.3381").raw.as(Bytes)).should eq "bar"
+        end
+      end
     end
   end
 

@@ -239,7 +239,7 @@ class MiniRedis
   end
 
   protected def marshal(arg : Float, io) : Nil
-    raise ArgumentError.new("Bulk value must be finite") unless a.finite?
+    raise ArgumentError.new("Bulk value must be finite") unless arg.finite?
     marshal(arg.to_s, io)
   end
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Crystal Docs 0.29.0">
+<meta name="generator" content="Crystal Docs 0.30.0">
 
 
 <link href="../css/style.css" rel="stylesheet" type="text/css">
@@ -97,7 +97,7 @@
 
   <h2>Overview</h2>
 
-  <p>A <code><a href="../MiniRedis.html">MiniRedis</a></code> connection pool. It has dynamic <code><a href="../MiniRedis/Pool.html#capacity%3AInt32-instance-method">#capacity</a></code> and <code><a href="../MiniRedis/Pool.html#block%3AProc%28MiniRedis%29-instance-method">#block</a></code> values.</p>
+  <p>A <code><a href="../MiniRedis.html">MiniRedis</a></code> connection pool. It has dynamic <code><a href="../MiniRedis/Pool.html#capacity:Int32-instance-method">#capacity</a></code> and <code><a href="../MiniRedis/Pool.html#block:Proc(MiniRedis)-instance-method">#block</a></code> values.</p>
 
 
 
@@ -130,14 +130,14 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#new%28uri%3AURI%3DURI.parse%28%26quot%3Bredis%3A%2F%2Flocalhost%3A6379%26quot%3B%29%2Ccapacity%3AInt32%3DInt32%3A%3AMAX%2Cinitial_size%3AInt32%3D0%2Clogger%3ALogger%3F%3Dnil%2Clogger_severity%3ALogger%3A%3ASeverity%3DLogger%3A%3ASeverity%3A%3AINFO%2Cdns_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%2Cconnect_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%2Cread_timeout%3ATime%3A%3ASpan%3F%3Dnil%2Cwrite_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%29-class-method" class="signature"><strong>.new</strong>(uri : URI = <span class="t">URI</span>.parse(<span class="s">&quot;redis://localhost:6379&quot;</span>), capacity : Int32 = <span class="t">Int32</span><span class="t">::</span><span class="t">MAX</span>, initial_size : Int32 = <span class="n">0</span>, logger : Logger? = <span class="n">nil</span>, logger_severity : Logger::Severity = <span class="t">Logger</span><span class="t">::</span><span class="t">Severity</span><span class="t">::</span><span class="t">INFO</span>, dns_timeout : Time::Span? = <span class="n">5</span>.seconds, connect_timeout : Time::Span? = <span class="n">5</span>.seconds, read_timeout : Time::Span? = <span class="n">nil</span>, write_timeout : Time::Span? = <span class="n">5</span>.seconds)</a>
+        <a href="#new(uri:URI=URI.parse(&quot;redis://localhost:6379&quot;),capacity:Int32=Int32::MAX,initial_size:Int32=0,logger:Logger?=nil,logger_severity:Logger::Severity=Logger::Severity::INFO,dns_timeout:Time::Span?=5.seconds,connect_timeout:Time::Span?=5.seconds,read_timeout:Time::Span?=nil,write_timeout:Time::Span?=5.seconds)-class-method" class="signature"><strong>.new</strong>(uri : URI = <span class="t">URI</span>.parse(<span class="s">&quot;redis://localhost:6379&quot;</span>), capacity : Int32 = <span class="t">Int32</span><span class="t">::</span><span class="t">MAX</span>, initial_size : Int32 = <span class="n">0</span>, logger : Logger? = <span class="n">nil</span>, logger_severity : Logger::Severity = <span class="t">Logger</span><span class="t">::</span><span class="t">Severity</span><span class="t">::</span><span class="t">INFO</span>, dns_timeout : Time::Span? = <span class="n">5</span>.seconds, connect_timeout : Time::Span? = <span class="n">5</span>.seconds, read_timeout : Time::Span? = <span class="n">nil</span>, write_timeout : Time::Span? = <span class="n">5</span>.seconds)</a>
         
-          <div class="summary"><p>Initialize a new pool with <code><a href="../MiniRedis/Pool.html#block%3AProc%28MiniRedis%29-instance-method">#block</a></code> initializing a <code><a href="../MiniRedis.html">MiniRedis</a></code> client from the <em>uri</em>.</p></div>
+          <div class="summary"><p>Initialize a new pool with <code><a href="../MiniRedis/Pool.html#block:Proc(MiniRedis)-instance-method">#block</a></code> initializing a <code><a href="../MiniRedis.html">MiniRedis</a></code> client from the <em>uri</em>.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#new%28capacity%3AInt32%3DInt32%3A%3AMAX%2Cinitial_size%3AInt32%3D0%2C%26block%3A-%3EMiniRedis%29-class-method" class="signature"><strong>.new</strong>(capacity : Int32 = <span class="t">Int32</span><span class="t">::</span><span class="t">MAX</span>, initial_size : Int32 = <span class="n">0</span>, &block :  -> MiniRedis)</a>
+        <a href="#new(capacity:Int32=Int32::MAX,initial_size:Int32=0,&block:-%3EMiniRedis)-class-method" class="signature"><strong>.new</strong>(capacity : Int32 = <span class="t">Int32</span><span class="t">::</span><span class="t">MAX</span>, initial_size : Int32 = <span class="n">0</span>, &block :  -> MiniRedis)</a>
         
       </li>
     
@@ -151,28 +151,28 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#block%3AProc%28MiniRedis%29-instance-method" class="signature"><strong>#block</strong> : Proc(MiniRedis)</a>
+        <a href="#block:Proc(MiniRedis)-instance-method" class="signature"><strong>#block</strong> : Proc(MiniRedis)</a>
         
           <div class="summary"><p>The pool's block to call to initialize a new <code><a href="../MiniRedis.html">MiniRedis</a></code> instance.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#block%3D%28block%3AProc%28MiniRedis%29%29-instance-method" class="signature"><strong>#block=</strong>(block : Proc(MiniRedis))</a>
+        <a href="#block=(block:Proc(MiniRedis))-instance-method" class="signature"><strong>#block=</strong>(block : Proc(MiniRedis))</a>
         
           <div class="summary"><p>The pool's block to call to initialize a new <code><a href="../MiniRedis.html">MiniRedis</a></code> instance.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#capacity%3AInt32-instance-method" class="signature"><strong>#capacity</strong> : Int32</a>
+        <a href="#capacity:Int32-instance-method" class="signature"><strong>#capacity</strong> : Int32</a>
         
           <div class="summary"><p>The pool's capacity.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#capacity%3D%28capacity%3AInt32%29-instance-method" class="signature"><strong>#capacity=</strong>(capacity : Int32)</a>
+        <a href="#capacity=(capacity:Int32)-instance-method" class="signature"><strong>#capacity=</strong>(capacity : Int32)</a>
         
           <div class="summary"><p>The pool's capacity.</p></div>
         
@@ -186,21 +186,21 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#get%28timeout%3ATime%3A%3ASpan%3F%3Dnil%2C%26block%3AMiniRedis-%3E%29-instance-method" class="signature"><strong>#get</strong>(timeout : Time::Span? = <span class="n">nil</span>, &block : MiniRedis -> )</a>
+        <a href="#get(timeout:Time::Span?=nil,&block:MiniRedis-%3E)-instance-method" class="signature"><strong>#get</strong>(timeout : Time::Span? = <span class="n">nil</span>, &block : MiniRedis -> )</a>
         
           <div class="summary"><p>Yield a free <code><a href="../MiniRedis.html">MiniRedis</a></code> client.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#get%28timeout%3ATime%3A%3ASpan%3F%3Dnil%29%3AMiniRedis-instance-method" class="signature"><strong>#get</strong>(timeout : Time::Span? = <span class="n">nil</span>) : MiniRedis</a>
+        <a href="#get(timeout:Time::Span?=nil):MiniRedis-instance-method" class="signature"><strong>#get</strong>(timeout : Time::Span? = <span class="n">nil</span>) : MiniRedis</a>
         
           <div class="summary"><p>Return a free <code><a href="../MiniRedis.html">MiniRedis</a></code> client.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#release%28redis%3AMiniRedis%29%3ANil-instance-method" class="signature"><strong>#release</strong>(redis : MiniRedis) : Nil</a>
+        <a href="#release(redis:MiniRedis):Nil-instance-method" class="signature"><strong>#release</strong>(redis : MiniRedis) : Nil</a>
         
           <div class="summary"><p>Put the <em>redis</em> client back into the pool.</p></div>
         
@@ -258,10 +258,10 @@
         
         def self.<strong>new</strong>(uri : URI = <span class="t">URI</span>.parse(<span class="s">&quot;redis://localhost:6379&quot;</span>), capacity : Int32 = <span class="t">Int32</span><span class="t">::</span><span class="t">MAX</span>, initial_size : Int32 = <span class="n">0</span>, logger : Logger? = <span class="n">nil</span>, logger_severity : Logger::Severity = <span class="t">Logger</span><span class="t">::</span><span class="t">Severity</span><span class="t">::</span><span class="t">INFO</span>, dns_timeout : Time::Span? = <span class="n">5</span>.seconds, connect_timeout : Time::Span? = <span class="n">5</span>.seconds, read_timeout : Time::Span? = <span class="n">nil</span>, write_timeout : Time::Span? = <span class="n">5</span>.seconds)
 
-        <a class="method-permalink" href="#new%28uri%3AURI%3DURI.parse%28%26quot%3Bredis%3A%2F%2Flocalhost%3A6379%26quot%3B%29%2Ccapacity%3AInt32%3DInt32%3A%3AMAX%2Cinitial_size%3AInt32%3D0%2Clogger%3ALogger%3F%3Dnil%2Clogger_severity%3ALogger%3A%3ASeverity%3DLogger%3A%3ASeverity%3A%3AINFO%2Cdns_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%2Cconnect_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%2Cread_timeout%3ATime%3A%3ASpan%3F%3Dnil%2Cwrite_timeout%3ATime%3A%3ASpan%3F%3D5.seconds%29-class-method">#</a>
+        <a class="method-permalink" href="#new(uri:URI=URI.parse(&quot;redis://localhost:6379&quot;),capacity:Int32=Int32::MAX,initial_size:Int32=0,logger:Logger?=nil,logger_severity:Logger::Severity=Logger::Severity::INFO,dns_timeout:Time::Span?=5.seconds,connect_timeout:Time::Span?=5.seconds,read_timeout:Time::Span?=nil,write_timeout:Time::Span?=5.seconds)-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Initialize a new pool with <code><a href="../MiniRedis/Pool.html#block%3AProc%28MiniRedis%29-instance-method">#block</a></code> initializing a
+        <div class="doc"><p>Initialize a new pool with <code><a href="../MiniRedis/Pool.html#block:Proc(MiniRedis)-instance-method">#block</a></code> initializing a
 <code><a href="../MiniRedis.html">MiniRedis</a></code> client from the <em>uri</em>.</p></div>
       
       <br/>
@@ -277,7 +277,7 @@
         
         def self.<strong>new</strong>(capacity : Int32 = <span class="t">Int32</span><span class="t">::</span><span class="t">MAX</span>, initial_size : Int32 = <span class="n">0</span>, &block :  -> <a href="../MiniRedis.html">MiniRedis</a>)
 
-        <a class="method-permalink" href="#new%28capacity%3AInt32%3DInt32%3A%3AMAX%2Cinitial_size%3AInt32%3D0%2C%26block%3A-%3EMiniRedis%29-class-method">#</a>
+        <a class="method-permalink" href="#new(capacity:Int32=Int32::MAX,initial_size:Int32=0,&block:-%3EMiniRedis)-class-method">#</a>
       </div>
       
       <br/>
@@ -300,7 +300,7 @@
         
         def <strong>block</strong> : Proc(<a href="../MiniRedis.html">MiniRedis</a>)
 
-        <a class="method-permalink" href="#block%3AProc%28MiniRedis%29-instance-method">#</a>
+        <a class="method-permalink" href="#block:Proc(MiniRedis)-instance-method">#</a>
       </div>
       
         <div class="doc"><p>The pool's block to call to initialize a new <code><a href="../MiniRedis.html">MiniRedis</a></code> instance.
@@ -319,7 +319,7 @@ Can be changed after the pool is initialized.</p></div>
         
         def <strong>block=</strong>(block : Proc(<a href="../MiniRedis.html">MiniRedis</a>))
 
-        <a class="method-permalink" href="#block%3D%28block%3AProc%28MiniRedis%29%29-instance-method">#</a>
+        <a class="method-permalink" href="#block=(block:Proc(MiniRedis))-instance-method">#</a>
       </div>
       
         <div class="doc"><p>The pool's block to call to initialize a new <code><a href="../MiniRedis.html">MiniRedis</a></code> instance.
@@ -338,7 +338,7 @@ Can be changed after the pool is initialized.</p></div>
         
         def <strong>capacity</strong> : Int32
 
-        <a class="method-permalink" href="#capacity%3AInt32-instance-method">#</a>
+        <a class="method-permalink" href="#capacity:Int32-instance-method">#</a>
       </div>
       
         <div class="doc"><p>The pool's capacity. Can be changed after the pool is initialized.</p></div>
@@ -356,7 +356,7 @@ Can be changed after the pool is initialized.</p></div>
         
         def <strong>capacity=</strong>(capacity : Int32)
 
-        <a class="method-permalink" href="#capacity%3D%28capacity%3AInt32%29-instance-method">#</a>
+        <a class="method-permalink" href="#capacity=(capacity:Int32)-instance-method">#</a>
       </div>
       
         <div class="doc"><p>The pool's capacity. Can be changed after the pool is initialized.</p></div>
@@ -392,12 +392,12 @@ Can be changed after the pool is initialized.</p></div>
         
         def <strong>get</strong>(timeout : Time::Span? = <span class="n">nil</span>, &block : <a href="../MiniRedis.html">MiniRedis</a> -> )
 
-        <a class="method-permalink" href="#get%28timeout%3ATime%3A%3ASpan%3F%3Dnil%2C%26block%3AMiniRedis-%3E%29-instance-method">#</a>
+        <a class="method-permalink" href="#get(timeout:Time::Span?=nil,&block:MiniRedis-%3E)-instance-method">#</a>
       </div>
       
         <div class="doc"><p>Yield a free <code><a href="../MiniRedis.html">MiniRedis</a></code> client.
 Blocks until one is available, raises <code><a href="../MiniRedis/Pool/TimeoutError.html">TimeoutError</a></code> on optional <em>timeout</em>.
-Calls <code><a href="../MiniRedis/Pool.html#release%28redis%3AMiniRedis%29%3ANil-instance-method">#release</a></code> after yield.</p></div>
+Calls <code><a href="../MiniRedis/Pool.html#release(redis:MiniRedis):Nil-instance-method">#release</a></code> after yield.</p></div>
       
       <br/>
       <div>
@@ -412,13 +412,13 @@ Calls <code><a href="../MiniRedis/Pool.html#release%28redis%3AMiniRedis%29%3ANil
         
         def <strong>get</strong>(timeout : Time::Span? = <span class="n">nil</span>) : <a href="../MiniRedis.html">MiniRedis</a>
 
-        <a class="method-permalink" href="#get%28timeout%3ATime%3A%3ASpan%3F%3Dnil%29%3AMiniRedis-instance-method">#</a>
+        <a class="method-permalink" href="#get(timeout:Time::Span?=nil):MiniRedis-instance-method">#</a>
       </div>
       
         <div class="doc"><p>Return a free <code><a href="../MiniRedis.html">MiniRedis</a></code> client.
 Blocks until one is available, raises <code><a href="../MiniRedis/Pool/TimeoutError.html">TimeoutError</a></code> on optional <em>timeout</em>.</p>
 
-<p><span class="flag purple">NOTE</span>  Do not forget to <code><a href="../MiniRedis/Pool.html#release%28redis%3AMiniRedis%29%3ANil-instance-method">#release</a></code> the client afterwards!</p></div>
+<p><span class="flag purple">NOTE</span>  Do not forget to <code><a href="../MiniRedis/Pool.html#release(redis:MiniRedis):Nil-instance-method">#release</a></code> the client afterwards!</p></div>
       
       <br/>
       <div>
@@ -433,7 +433,7 @@ Blocks until one is available, raises <code><a href="../MiniRedis/Pool/TimeoutEr
         
         def <strong>release</strong>(redis : <a href="../MiniRedis.html">MiniRedis</a>) : Nil
 
-        <a class="method-permalink" href="#release%28redis%3AMiniRedis%29%3ANil-instance-method">#</a>
+        <a class="method-permalink" href="#release(redis:MiniRedis):Nil-instance-method">#</a>
       </div>
       
         <div class="doc"><p>Put the <em>redis</em> client back into the pool.</p></div>

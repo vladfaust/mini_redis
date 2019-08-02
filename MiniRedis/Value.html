@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Crystal Docs 0.29.0">
+<meta name="generator" content="Crystal Docs 0.30.0">
 
 
 <link href="../css/style.css" rel="stylesheet" type="text/css">
@@ -97,7 +97,7 @@
 
   <h2>Overview</h2>
 
-  <p>A Redis value. It's <code><a href="../MiniRedis/Value.html#raw%3AArray%28MiniRedis%3A%3AValue%29%7CInt64%7CSlice%28UInt8%29%7CString%7CNil-instance-method">#raw</a></code> value has a type according to <a href="https://redis.io/topics/protocol" target="_blank">Redis Protocol Specification</a>:</p>
+  <p>A Redis value. It's <code><a href="../MiniRedis/Value.html#raw:Array(MiniRedis::Value)%7CInt64%7CSlice(UInt8)%7CString%7CNil-instance-method">#raw</a></code> value has a type according to <a href="https://redis.io/topics/protocol" target="_blank">Redis Protocol Specification</a>:</p>
 
 <pre><code><span class="c"># Redis type    | First byte | Crystal type |</span>
 <span class="c"># ------------- | ---------- | ------------ |</span>
@@ -117,8 +117,8 @@ response <span class="o">=</span> redis.send(<span class="s">&quot;GET foo&quot;
 response <span class="o">=</span> <span class="t">String</span>.<span class="k">new</span>(response.raw.<span class="k">as</span>(<span class="t">Bytes</span>))
 pp response <span class="c"># =&gt; &quot;bar&quot;</span></code></pre>
 
-<p>Reminder — do not try to directly print a <code><a href="../MiniRedis.html#send%28commands%3AEnumerable%29%3AValue-instance-method">MiniRedis#send</a></code> response when in
-pipeline mode! See <code><a href="../MiniRedis.html#pipeline%28%26block%3Aself-%3E%29%3AArray%28Value%29-instance-method">MiniRedis#pipeline</a></code> docs.</p>
+<p>Reminder — do not try to directly print a <code><a href="../MiniRedis.html#send(commands:Enumerable):Value-instance-method">MiniRedis#send</a></code> response when in
+pipeline mode! See <code><a href="../MiniRedis.html#pipeline(&block:self-%3E):Array(Value)-instance-method">MiniRedis#pipeline</a></code> docs.</p>
 
 
 
@@ -151,7 +151,7 @@ pipeline mode! See <code><a href="../MiniRedis.html#pipeline%28%26block%3Aself-%
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#new%28raw%3AInt64%7CString%7CBytes%7CNil%7CArray%28Value%29%29-class-method" class="signature"><strong>.new</strong>(raw : Int64 | String | Bytes | Nil | Array(Value))</a>
+        <a href="#new(raw:Int64%7CString%7CBytes%7CNil%7CArray(Value))-class-method" class="signature"><strong>.new</strong>(raw : Int64 | String | Bytes | Nil | Array(Value))</a>
         
       </li>
     
@@ -165,7 +165,7 @@ pipeline mode! See <code><a href="../MiniRedis.html#pipeline%28%26block%3Aself-%
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#raw%3AArray%28MiniRedis%3A%3AValue%29%7CInt64%7CSlice%28UInt8%29%7CString%7CNil-instance-method" class="signature"><strong>#raw</strong> : Array(MiniRedis::Value) | Int64 | Slice(UInt8) | String | Nil</a>
+        <a href="#raw:Array(MiniRedis::Value)%7CInt64%7CSlice(UInt8)%7CString%7CNil-instance-method" class="signature"><strong>#raw</strong> : Array(MiniRedis::Value) | Int64 | Slice(UInt8) | String | Nil</a>
         
       </li>
     
@@ -217,7 +217,7 @@ pipeline mode! See <code><a href="../MiniRedis.html#pipeline%28%26block%3Aself-%
         
         def self.<strong>new</strong>(raw : Int64 | String | Bytes | Nil | Array(<a href="../MiniRedis/Value.html">Value</a>))
 
-        <a class="method-permalink" href="#new%28raw%3AInt64%7CString%7CBytes%7CNil%7CArray%28Value%29%29-class-method">#</a>
+        <a class="method-permalink" href="#new(raw:Int64%7CString%7CBytes%7CNil%7CArray(Value))-class-method">#</a>
       </div>
       
       <br/>
@@ -240,7 +240,7 @@ pipeline mode! See <code><a href="../MiniRedis.html#pipeline%28%26block%3Aself-%
         
         def <strong>raw</strong> : Array(<a href="../MiniRedis/Value.html">MiniRedis::Value</a>) | Int64 | Slice(UInt8) | String | Nil
 
-        <a class="method-permalink" href="#raw%3AArray%28MiniRedis%3A%3AValue%29%7CInt64%7CSlice%28UInt8%29%7CString%7CNil-instance-method">#</a>
+        <a class="method-permalink" href="#raw:Array(MiniRedis::Value)%7CInt64%7CSlice(UInt8)%7CString%7CNil-instance-method">#</a>
       </div>
       
       <br/>

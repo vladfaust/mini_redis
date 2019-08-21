@@ -1,9 +1,9 @@
 name: mini_redis
-version: 0.2.2
+version: 0.2.3
 
 authors:
   - Vlad Faust <mail@vladfaust.com>
 
-crystal: 0.27.0
+crystal: 0.29.0
 
 license: MIT

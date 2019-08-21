@@ -32,7 +32,7 @@ class MiniRedis
     socket.read_timeout = read_timeout
     socket.write_timeout = write_timeout
 
-    new(socket, logger, logger_severity)
+    new(socket, logger, logger_severity, uri)
   end
 
   def_equals_and_hash socket
@@ -42,8 +42,10 @@ class MiniRedis
   def initialize(
     @socket : Socket,
     @logger : Logger? = nil,
-    @logger_severity : Logger::Severity = Logger::Severity::INFO
+    @logger_severity : Logger::Severity = Logger::Severity::INFO,
+    @uri : URI = nil
   )
+    send("AUTH", @uri.password) if @uri.password
   end
 
   # :nodoc:

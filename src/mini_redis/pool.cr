@@ -82,7 +82,7 @@ class MiniRedis
           @used.add(redis)
           return redis
         else
-          if timeout! = timeout
+          if timeout
             started_at = Time.monotonic
 
             loop do
@@ -90,7 +90,7 @@ class MiniRedis
 
               if redis = @free.shift?
                 return redis
-              elsif Time.monotonic - started_at >= timeout!
+              elsif Time.monotonic - started_at >= timeout
                 raise TimeoutError.new
               end
             end
